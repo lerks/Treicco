@@ -26,8 +26,8 @@ public class Directory implements IsSerializable {
 	public String getName() {
 		return id.substring(id.lastIndexOf('/', id.length() - 2) + 1, id.length() - 1);
 	}
-	
-	public String getId () {
+
+	public String getId() {
 		return id;
 	}
 

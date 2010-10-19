@@ -21,7 +21,9 @@ public class Treicco implements EntryPoint {
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
 	 */
-//	private static final String SERVER_ERROR = "An error occurred while " + "attempting to contact the server. Please check your network " + "connection and try again.";
+	// private static final String SERVER_ERROR = "An error occurred while " +
+	// "attempting to contact the server. Please check your network " +
+	// "connection and try again.";
 
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting
@@ -41,7 +43,7 @@ public class Treicco implements EntryPoint {
 
 		final Label titleText = new Label("Task Repository for Informatics and Coding Competitions");
 		titlePanel.add(titleText);
-		
+
 		final Label addText = new Label("Result of add()");
 		final Label getText = new Label("Result of get()");
 		titlePanel.add(addText);
@@ -49,11 +51,12 @@ public class Treicco implements EntryPoint {
 		titlePanel.add(getText);
 		titlePanel.setWidgetTopHeight(getText, 60, Unit.PX, 30, Unit.PX);
 
-//		final StackLayoutPanel competitionPanel = new StackLayoutPanel(Unit.PX);
-//		mainPanel.addWest(competitionPanel, 250);
-		
-		final Directory d = new Directory ("/IOI/", "day1");
-		
+		// final StackLayoutPanel competitionPanel = new
+		// StackLayoutPanel(Unit.PX);
+		// mainPanel.addWest(competitionPanel, 250);
+
+		final Directory d = new Directory("/IOI/", "day1");
+
 		competitionManager.add(d, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
 				addText.setText("add() exception: " + caught.toString());
@@ -64,22 +67,22 @@ public class Treicco implements EntryPoint {
 			}
 		});
 
-//	    // Create a tree with a few items in it.
-//	    TreeItem root = new TreeItem("root");
-//	    root.addItem("item0");
-//	    root.addItem("item1");
-//	    root.addItem("item2");
-//
-//	    // Add a CheckBox to the tree
-//	    final TreeItem item = new TreeItem(new CheckBox("item3"));
-//	    root.addItem(item);
-//
-//	    Tree t = new Tree();
-//	    t.addItem(root);
-//
-//	    // Add it to the root panel.
-//	    mainPanel.addWest (t, 250);
-	    
+		// Create a tree with a few items in it.
+		TreeItem root = new TreeItem("root");
+		root.addItem("item0");
+		root.addItem("item1");
+		root.addItem("item2");
+
+		// Add a CheckBox to the tree
+		final TreeItem item = new TreeItem(new CheckBox("item3"));
+		root.addItem(item);
+
+		Tree t = new Tree();
+		t.addItem(root);
+
+		// Add it to the root panel.
+		mainPanel.addWest(t, 250);
+
 		competitionManager.get("/IOI/", new AsyncCallback<Directory>() {
 			public void onFailure(Throwable caught) {
 				getText.setText("get() exception: " + caught.toString());
@@ -87,20 +90,19 @@ public class Treicco implements EntryPoint {
 
 			public void onSuccess(Directory result) {
 				getText.setText("get() complter succesfully: " + result.getId() + " " + result.getDirectories().size());
-//				item.setWidget(new HTML(result.getPath()+"  "+result.getName()));
+				item.setWidget(new HTML(result.getPath() + "  " + result.getName()));
 			}
 		});
 
+		// final DialogBox addDialog = new DialogBox();
+		// final Button addButton = new Button("Add");
+		// final Button cancelButton = new Button("Cancel");
+		// TextBox addTBox = new TextBox();
 
-//		final DialogBox addDialog = new DialogBox();
-//		final Button addButton = new Button("Add");
-//		final Button cancelButton = new Button("Cancel");
-//		TextBox addTBox = new TextBox();
+		// HorizontalPanel addHPanel = new HorizontalPanel();
+		// addHPanel.add(addButton);
+		// addHPanel.add(cancelButton);
 
-//		HorizontalPanel addHPanel = new HorizontalPanel();
-//		addHPanel.add(addButton);
-//		addHPanel.add(cancelButton);
-		
 		// final Button sendButton = new Button("Send");
 		// final TextBox nameField = new TextBox();
 		// nameField.setText("GWT User");

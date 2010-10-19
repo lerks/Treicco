@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
 import treicco.client.CompetitionManager;
 import treicco.client.Directory;
@@ -30,118 +29,72 @@ public class CompetitionManagerImpl extends RemoteServiceServlet implements Comp
 
 	public void add(Directory d) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-//		Transaction tx = pm.currentTransaction();
 
 		try {
-//			tx.begin();
-
-			Directory parent = this.get(d.getPath());
-
-			pm.makePersistent(d);
+			Directory parent = pm.getObjectById(Directory.class, d.getPath());
 
 			ArrayList<String> parent_children = parent.getDirectories();
 			parent_children.add(d.getName());
 			parent.setDirectories(parent_children);
-			
-			pm.makePersistent(parent);
-			
-//			tx.commit();
+
+			pm.makePersistent(d);
 
 			log.info("Succesful creation of Directory " + d.getName() + " in " + d.getPath());
 		} finally {
-//            if (tx.isActive()) {
-//                tx.rollback();
-                
-    			log.severe("Failed creation of Directory " + d.getName() + " in " + d.getPath());
-//            }
-            
 			pm.close();
 		}
 	}
 
 	public void remove(Directory d) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
 
 		try {
-			tx.begin();
-
-			Directory parent = this.get(d.getPath());
+			Directory parent = pm.getObjectById(Directory.class, d.getPath());
 
 			ArrayList<String> parent_children = parent.getDirectories();
 			parent_children.remove(d.getName());
 			parent.setDirectories(parent_children);
 
 			pm.deletePersistent(d);
-			
-			tx.commit();
 
 			log.info("Succesful deletion of Directory " + d.getName() + " in " + d.getPath());
 		} finally {
-            if (tx.isActive()) {
-                tx.rollback();
-                
-    			log.severe("Failed deletion of Directory " + d.getName() + " in " + d.getPath());
-            }
-            
 			pm.close();
 		}
 	}
 
 	public void add(Task t) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
 
 		try {
-			tx.begin();
-
-			Directory parent = this.get(t.getPath());
-
-			pm.makePersistent(t);
+			Directory parent = pm.getObjectById(Directory.class, t.getPath());
 
 			ArrayList<String> parent_children = parent.getTasks();
 			parent_children.add(t.getName());
 			parent.setTasks(parent_children);
-			
-			tx.commit();
+
+			pm.makePersistent(t);
 
 			log.info("Succesful creation of Task " + t.getName() + " in " + t.getPath());
 		} finally {
-            if (tx.isActive()) {
-                tx.rollback();
-                
-    			log.severe("Failed creation of Task " + t.getName() + " in " + t.getPath());
-            }
-            
 			pm.close();
 		}
 	}
 
 	public void remove(Task t) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
 
 		try {
-			tx.begin();
-
-			Directory parent = this.get(t.getPath());
+			Directory parent = pm.getObjectById(Directory.class, t.getPath());
 
 			ArrayList<String> parent_children = parent.getTasks();
 			parent_children.remove(t.getName());
 			parent.setTasks(parent_children);
 
 			pm.deletePersistent(t);
-			
-			tx.commit();
 
-			log.info("Succesful deletion of Directory " + t.getName() + " in " + t.getPath());
+			log.info("Succesful deletion of Task " + t.getName() + " in " + t.getPath());
 		} finally {
-            if (tx.isActive()) {
-                tx.rollback();
-                
-    			log.severe("Failed deletion of Directory " + t.getName() + " in " + t.getPath());
-            }
-            
 			pm.close();
 		}
 	}
