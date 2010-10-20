@@ -18,6 +18,36 @@ public class DirectoryView extends TreeItem {
 		this.path = path;
 		updateData ();
 	}
+	
+	private TextInputListener directory_input = new TextInputListener() {
+		public void gotTextInput(String input) {
+			Directory d = new Directory (path, input);
+			competitionManager.add(d, new AsyncCallback<Void>() {
+				public void onFailure(Throwable caught) {
+					setText("ERROR_MESSAGE");
+				}
+
+				public void onSuccess(Void v) {
+					updateData();
+				}
+			});
+		}
+	};
+	
+	private TextInputListener task_input = new TextInputListener() {
+		public void gotTextInput(String input) {
+			Task t = new Task (path, input);
+			competitionManager.add(t, new AsyncCallback<Void>() {
+				public void onFailure(Throwable caught) {
+					setText("ERROR_MESSAGE");
+				}
+
+				public void onSuccess(Void v) {
+					updateData();
+				}
+			});
+		}
+	};
 
 	public void updateData() {
 		competitionManager.get(path, new AsyncCallback<Directory>() {
@@ -44,16 +74,8 @@ public class DirectoryView extends TreeItem {
 		Anchor add_d = new Anchor ("Add directory...");
 		add_d.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Directory d = new Directory (path, "IOI");
-				competitionManager.add(d, new AsyncCallback<Void>() {
-					public void onFailure(Throwable caught) {
-						setText("ERROR_MESSAGE");
-					}
-
-					public void onSuccess(Void v) {
-						updateData();
-					}
-				});
+				AddDialog ad = new AddDialog ("Add directory...", directory_input);
+				ad.show ();
 			}
 		});
 		addItem (add_d);
@@ -65,16 +87,8 @@ public class DirectoryView extends TreeItem {
 		Anchor add_t = new Anchor ("Add task...");
 		add_t.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Task t = new Task (path, "maze");
-				competitionManager.add(t, new AsyncCallback<Void>() {
-					public void onFailure(Throwable caught) {
-						setText("ERROR_MESSAGE");
-					}
-
-					public void onSuccess(Void v) {
-						updateData();
-					}
-				});
+				AddDialog ad = new AddDialog ("Add task...", task_input);
+				ad.show ();
 			}
 		});
 		addItem (add_t);
