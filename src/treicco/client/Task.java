@@ -13,15 +13,15 @@ public class Task implements IsSerializable {
 
 	public Task(String path, String name) {
 		// this.setShortName(shortName);
-		this.id = path + "/" + name;
+		this.id = path + name;
 	}
 
 	public String getPath() {
-		return id;
+		return id.substring(0, id.lastIndexOf('/') + 1);
 	}
 
 	public String getName() {
-		return id;
+		return id.substring(id.lastIndexOf('/') + 1);
 	}
 
 	public void setLongName(String longName) {

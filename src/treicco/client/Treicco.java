@@ -55,44 +55,34 @@ public class Treicco implements EntryPoint {
 		// StackLayoutPanel(Unit.PX);
 		// mainPanel.addWest(competitionPanel, 250);
 
-		final Directory d = new Directory("/IOI/", "day1");
-
-		competitionManager.add(d, new AsyncCallback<Void>() {
-			public void onFailure(Throwable caught) {
-				addText.setText("add() exception: " + caught.toString());
-			}
-
-			public void onSuccess(Void v) {
-				addText.setText("add () completed succesfully: '" + d.getId() + "'");
-			}
-		});
-
-		// Create a tree with a few items in it.
-		TreeItem root = new TreeItem("root");
-		root.addItem("item0");
-		root.addItem("item1");
-		root.addItem("item2");
-
-		// Add a CheckBox to the tree
-		final TreeItem item = new TreeItem(new CheckBox("item3"));
-		root.addItem(item);
+//		final Directory d = new Directory("/", "IOI");
+//
+//		competitionManager.add(d, new AsyncCallback<Void>() {
+//			public void onFailure(Throwable caught) {
+//				addText.setText("add() exception: " + caught.toString());
+//			}
+//
+//			public void onSuccess(Void v) {
+//				addText.setText("add () completed succesfully: '" + d.getId() + "'");
+//			}
+//		});
 
 		Tree t = new Tree();
-		t.addItem(root);
+		t.addItem(new DirectoryView("/"));
 
 		// Add it to the root panel.
 		mainPanel.addWest(t, 250);
 
-		competitionManager.get("/IOI/", new AsyncCallback<Directory>() {
-			public void onFailure(Throwable caught) {
-				getText.setText("get() exception: " + caught.toString());
-			}
-
-			public void onSuccess(Directory result) {
-				getText.setText("get() complter succesfully: " + result.getId() + " " + result.getDirectories().size());
-				item.setWidget(new HTML(result.getPath() + "  " + result.getName()));
-			}
-		});
+//		competitionManager.get("/IOI/", new AsyncCallback<Directory>() {
+//			public void onFailure(Throwable caught) {
+//				getText.setText("get() exception: " + caught.toString());
+//			}
+//
+//			public void onSuccess(Directory result) {
+//				getText.setText("get() complter succesfully: " + result.getId() + " " + result.getDirectories().size());
+//				item.setWidget(new HTML(result.getPath() + "  " + result.getName()));
+//			}
+//		});
 
 		// final DialogBox addDialog = new DialogBox();
 		// final Button addButton = new Button("Add");
