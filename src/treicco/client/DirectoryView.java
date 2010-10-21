@@ -14,40 +14,28 @@ public class DirectoryView extends TreeItem {
 
 	private Directory directory;
 
+	private AddDirectoryDialog add_directory_dialog = new AddDirectoryDialog();
+	
+	private AddTaskDialog add_task_dialog = new AddTaskDialog();
+
 	public DirectoryView(String path) {
 		this.path = path;
-		updateData ();
+		updateData();
+	}
+
+	public String getPath() {
+		return path;
 	}
 	
-	private TextInputListener directory_input = new TextInputListener() {
-		public void gotTextInput(String input) {
-			Directory d = new Directory (path, input);
-			competitionManager.add(d, new AsyncCallback<Void>() {
-				public void onFailure(Throwable caught) {
-					setText("ERROR_MESSAGE");
-				}
-
-				public void onSuccess(Void v) {
-					updateData();
-				}
-			});
-		}
-	};
+	public void addDirectory () {
+		add_directory_dialog.init(this);
+		add_directory_dialog.center();
+	}
 	
-	private TextInputListener task_input = new TextInputListener() {
-		public void gotTextInput(String input) {
-			Task t = new Task (path, input);
-			competitionManager.add(t, new AsyncCallback<Void>() {
-				public void onFailure(Throwable caught) {
-					setText("ERROR_MESSAGE");
-				}
-
-				public void onSuccess(Void v) {
-					updateData();
-				}
-			});
-		}
-	};
+	public void addTask () {
+		add_task_dialog.init(this);
+		add_task_dialog.center();
+	}
 
 	public void updateData() {
 		competitionManager.get(path, new AsyncCallback<Directory>() {
@@ -61,36 +49,34 @@ public class DirectoryView extends TreeItem {
 			}
 		});
 	}
-	
+
 	public void updateView() {
 		setText(directory.getId());
-		
+
 		removeItems();
-		
-		for (String d : directory.getDirectories()){
-			addItem(new DirectoryView(path+d+"/"));
+
+		for (String d : directory.getDirectories()) {
+			addItem(new DirectoryView(path + d + "/"));
 		}
-		
-		Anchor add_d = new Anchor ("Add directory...");
+
+		Anchor add_d = new Anchor("Add directory...");
 		add_d.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				AddDialog ad = new AddDialog ("Add directory...", directory_input);
-				ad.show ();
+				addDirectory ();
 			}
 		});
-		addItem (add_d);
-		
-		for (String t : directory.getTasks()){
+		addItem(add_d);
+
+		for (String t : directory.getTasks()) {
 			addItem(t);
 		}
-		
-		Anchor add_t = new Anchor ("Add task...");
+
+		Anchor add_t = new Anchor("Add task...");
 		add_t.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				AddDialog ad = new AddDialog ("Add task...", task_input);
-				ad.show ();
+				addTask ();
 			}
 		});
-		addItem (add_t);
+		addItem(add_t);
 	}
 }
