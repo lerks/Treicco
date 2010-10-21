@@ -63,7 +63,7 @@ public class Treicco implements EntryPoint {
 //			}
 //
 //			public void onSuccess(Void v) {
-//				addText.setText("add () completed succesfully: '" + d.getId() + "'");
+//				addText.setText("add () completed successfully: '" + d.getId() + "'");
 //			}
 //		});
 
@@ -71,7 +71,7 @@ public class Treicco implements EntryPoint {
 		t.addItem(new DirectoryView("/"));
 
 		// Add it to the root panel.
-		mainPanel.addWest(t, 250);
+		mainPanel.addWest(new DirectoryPanel("/", true), 250);
 
 //		competitionManager.get("/IOI/", new AsyncCallback<Directory>() {
 //			public void onFailure(Throwable caught) {
@@ -79,7 +79,7 @@ public class Treicco implements EntryPoint {
 //			}
 //
 //			public void onSuccess(Directory result) {
-//				getText.setText("get() complter succesfully: " + result.getId() + " " + result.getDirectories().size());
+//				getText.setText("get() completed successfully: " + result.getId() + " " + result.getDirectories().size());
 //				item.setWidget(new HTML(result.getPath() + "  " + result.getName()));
 //			}
 //		});

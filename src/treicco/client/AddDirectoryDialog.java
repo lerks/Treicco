@@ -29,11 +29,12 @@ public class AddDirectoryDialog extends DialogBox implements ClickHandler {
 	private Button cancel = new Button("Cancel");
 	
 	public AddDirectoryDialog() {
-		super (false);
+		super ();
 		
 		setText ("Add directory");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
+		setModal (true);
 		
 		confirm.addClickHandler(this);
 		cancel.addClickHandler(this);
@@ -54,8 +55,8 @@ public class AddDirectoryDialog extends DialogBox implements ClickHandler {
 		
 		vp.add(hp);
 		
-//		p.setWidth("180px");
-//		p.setHeight("100px");
+//		vp.setWidth("300px");
+//		vp.setHeight("200px");
 		
 		setWidget(vp);
 	}
