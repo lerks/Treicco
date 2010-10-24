@@ -4,8 +4,8 @@ java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException
 java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
 java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
 java.util.ArrayList, true, true, true, true, java.util.ArrayList/3821976829, 3821976829
-treicco.client.CompetitionManager, false, false, false, false, _, 240263400
-treicco.client.Directory, true, true, true, true, treicco.client.Directory/2469465085, 2469465085
-@ClientFields,treicco.client.Directory,id,longName,directories,tasks
-treicco.client.Task, false, false, true, true, treicco.client.Task/2143393874, 2143393874
-@ClientFields,treicco.client.Task,id,longName
+treicco.client.TaskManager, false, false, false, false, _, 558363266
+treicco.shared.Directory, true, true, true, true, treicco.shared.Directory/3241187904, 3241187904
+@ClientFields,treicco.shared.Directory,id,longName,directories,tasks
+treicco.shared.Task, true, true, true, true, treicco.shared.Task/3344381501, 3344381501
+@ClientFields,treicco.shared.Task,id,longName

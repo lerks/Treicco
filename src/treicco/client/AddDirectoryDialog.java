@@ -1,22 +1,22 @@
 package treicco.client;
 
+import treicco.shared.Directory;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class AddDirectoryDialog extends DialogBox implements ClickHandler {
-	private final CompetitionManagerAsync competitionManager = GWT.create(CompetitionManager.class);
+	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
 	
-	private DirectoryView listener;
+	private DirectoryPanel listener;
 	
 	private String parent = "/";
 	
@@ -61,7 +61,7 @@ public class AddDirectoryDialog extends DialogBox implements ClickHandler {
 		setWidget(vp);
 	}
 	
-	void init (DirectoryView dw) {
+	void init (DirectoryPanel dw) {
 		this.listener = dw;
 		this.parent = dw.getPath();
 		this.shortname.setText("");
@@ -71,15 +71,15 @@ public class AddDirectoryDialog extends DialogBox implements ClickHandler {
 	public void onClick(ClickEvent event) {
 		if (event.getSource() == confirm) {
 			Directory d = new Directory (parent, shortname.getText());
-			d.setLongName(longname.getText());
+			d.setFullName(longname.getText());
 			
-			competitionManager.add (d, new AsyncCallback<Void>() {
+			competitionManager.createDirectory (d, new AsyncCallback<Void>() {
 				public void onFailure(Throwable caught) {
 					setText("ERROR_MESSAGE");
 				}
 
 				public void onSuccess(Void v) {
-					listener.updateData();
+					listener.showChildren();
 				}
 			});
 		}

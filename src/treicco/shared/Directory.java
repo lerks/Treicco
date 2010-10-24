@@ -1,4 +1,4 @@
-package treicco.client;
+package treicco.shared;
 
 import java.util.ArrayList;
 
@@ -13,29 +13,51 @@ public class Directory implements IsSerializable {
 	public Directory() {
 	}
 
-	public Directory(String path, String name) {
+	public Directory(String parent, String name) {
 		// Escape the name
 		name = name.replaceAll("\\W", "_");
-		this.id = path + name + "/";
+		this.id = parent + name + "/";
 	}
 
-	public String getPath() {
-		return id.substring(0, id.lastIndexOf('/', id.length() - 2) + 1);
+	/**
+	 * Gets the path of the parent of the given Directory
+	 * 
+	 * @param task
+	 *            A path of a Directory
+	 * @return The path of the parent of the Directory
+	 */
+	public static String getParent(String path) {
+		return path.substring(0, path.lastIndexOf('/', path.length() - 2) + 1);
+	}
+
+	public String getParent() {
+		return getParent(id);
+	}
+
+	/**
+	 * Gets the name of the given Directory
+	 * 
+	 * @param task
+	 *            A path of a Directory
+	 * @return The name of the Directory
+	 */
+	public static String getName(String path) {
+		return path.substring(path.lastIndexOf('/', path.length() - 2) + 1, path.length() - 1);
 	}
 
 	public String getName() {
-		return id.substring(id.lastIndexOf('/', id.length() - 2) + 1, id.length() - 1);
+		return getName(id);
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setLongName(String longName) {
+	public void setFullName(String longName) {
 		this.longName = longName;
 	}
 
-	public String getLongName() {
+	public String getFullName() {
 		return longName;
 	}
 

@@ -1,60 +1,67 @@
 package treicco.client;
 
+import treicco.shared.Task;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddTaskDialog extends DialogBox implements ClickHandler {
-	private final CompetitionManagerAsync competitionManager = GWT.create(CompetitionManager.class);
-	
-	private DirectoryView listener;
-	
+	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
+
+	private DirectoryPanel listener;
+
 	private String parent = "/";
-	
+
 	private TextBox shortname = new TextBox();
-	
+
 	private TextBox longname = new TextBox();
-	
+
 	private Button confirm = new Button("Add");
-	
+
 	private Button cancel = new Button("Cancel");
-	
+
 	public AddTaskDialog() {
-		super (false);
-		
-		setTitle ("Add task");
+		super();
+
+		setText("Add task");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
-		
+		setModal(true);
+
 		confirm.addClickHandler(this);
 		cancel.addClickHandler(this);
-		
-		LayoutPanel p = new LayoutPanel ();
-		
-		p.add(shortname);
-		shortname.setWidth("180px");
-		p.setWidgetTopHeight(shortname, 0, Unit.PX, 50, Unit.PX);
-		p.setWidgetLeftRight(shortname, 0, Unit.PX, 0, Unit.PX);
-		p.add(confirm);
-		p.setWidgetTopHeight(confirm, 50, Unit.PX, 50, Unit.PX);
-		p.setWidgetLeftRight(confirm, 0, Unit.PX, 90, Unit.PX);
-		p.add(cancel);
-		p.setWidgetTopHeight(cancel, 50, Unit.PX, 50, Unit.PX);
-		p.setWidgetLeftRight(cancel, 90, Unit.PX, 180, Unit.PX);
-		
-		p.setWidth("180px");
-		p.setHeight("100px");
-		
-		setWidget(p);
+
+		VerticalPanel vp = new VerticalPanel();
+		vp.setSpacing(5);
+
+		vp.add(new HTML("Codename"));
+		vp.add(shortname);
+		vp.add(new HTML("Name"));
+		vp.add(longname);
+
+		HorizontalPanel hp = new HorizontalPanel();
+		hp.setSpacing(5);
+
+		hp.add(confirm);
+		hp.add(cancel);
+
+		vp.add(hp);
+
+		// vp.setWidth("300px");
+		// vp.setHeight("200px");
+
+		setWidget(vp);
 	}
-	
-	void init (DirectoryView dw) {
+
+	void init(DirectoryPanel dw) {
 		this.listener = dw;
 		this.parent = dw.getPath();
 		this.shortname.setText("");
@@ -63,16 +70,16 @@ public class AddTaskDialog extends DialogBox implements ClickHandler {
 
 	public void onClick(ClickEvent event) {
 		if (event.getSource() == confirm) {
-			Task t = new Task (parent, shortname.getText());
-			t.setLongName(longname.getText());
-			
-			competitionManager.add (t, new AsyncCallback<Void>() {
+			Task t = new Task(parent, shortname.getText());
+			t.setFullName(longname.getText());
+
+			competitionManager.createTask(t, new AsyncCallback<Void>() {
 				public void onFailure(Throwable caught) {
 					setText("ERROR_MESSAGE");
 				}
 
 				public void onSuccess(Void v) {
-					listener.updateData();
+					listener.showChildren();
 				}
 			});
 		}

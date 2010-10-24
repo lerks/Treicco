@@ -7,13 +7,13 @@
   
   <!-- Servlets -->
   <servlet>
-    <servlet-name>competitionManager</servlet-name>
-    <servlet-class>treicco.server.CompetitionManagerImpl</servlet-class>
+    <servlet-name>TaskManager</servlet-name>
+    <servlet-class>treicco.server.TaskManagerImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>competitionManager</servlet-name>
-    <url-pattern>/treicco/competition</url-pattern>
+    <servlet-name>TaskManager</servlet-name>
+    <url-pattern>/treicco/task</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

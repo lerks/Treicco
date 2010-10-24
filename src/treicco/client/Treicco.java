@@ -3,15 +3,12 @@ package treicco.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -29,7 +26,7 @@ public class Treicco implements EntryPoint {
 	 * Create a remote service proxy to talk to the server-side Greeting
 	 * service.
 	 */
-	private final CompetitionManagerAsync competitionManager = GWT.create(CompetitionManager.class);
+	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
 
 	/**
 	 * This is the entry point method.
@@ -44,45 +41,66 @@ public class Treicco implements EntryPoint {
 		final Label titleText = new Label("Task Repository for Informatics and Coding Competitions");
 		titlePanel.add(titleText);
 
-		final Label addText = new Label("Result of add()");
-		final Label getText = new Label("Result of get()");
-		titlePanel.add(addText);
-		titlePanel.setWidgetTopHeight(addText, 30, Unit.PX, 30, Unit.PX);
-		titlePanel.add(getText);
-		titlePanel.setWidgetTopHeight(getText, 60, Unit.PX, 30, Unit.PX);
-
 		// final StackLayoutPanel competitionPanel = new
 		// StackLayoutPanel(Unit.PX);
 		// mainPanel.addWest(competitionPanel, 250);
 
-//		final Directory d = new Directory("/", "IOI");
-//
-//		competitionManager.add(d, new AsyncCallback<Void>() {
-//			public void onFailure(Throwable caught) {
-//				addText.setText("add() exception: " + caught.toString());
-//			}
-//
-//			public void onSuccess(Void v) {
-//				addText.setText("add () completed successfully: '" + d.getId() + "'");
-//			}
-//		});
-
-		Tree t = new Tree();
-		t.addItem(new DirectoryView("/"));
+		// final Directory d = new Directory("/", "IOI");
+		//
+		// competitionManager.add(d, new AsyncCallback<Void>() {
+		// public void onFailure(Throwable caught) {
+		// addText.setText("add() exception: " + caught.toString());
+		// }
+		//
+		// public void onSuccess(Void v) {
+		// addText.setText("add () completed successfully: '" + d.getId() +
+		// "'");
+		// }
+		// });
 
 		// Add it to the root panel.
-		mainPanel.addWest(new DirectoryPanel("/", true), 250);
+		mainPanel.addWest(new DirectoryPanel(), 250);
+		History.newItem("/");
 
-//		competitionManager.get("/IOI/", new AsyncCallback<Directory>() {
-//			public void onFailure(Throwable caught) {
-//				getText.setText("get() exception: " + caught.toString());
-//			}
-//
-//			public void onSuccess(Directory result) {
-//				getText.setText("get() completed successfully: " + result.getId() + " " + result.getDirectories().size());
-//				item.setWidget(new HTML(result.getPath() + "  " + result.getName()));
-//			}
-//		});
+		mainPanel.add(new TaskPanel());
+
+		competitionManager.init(new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			public void onSuccess(Void result) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		// competitionManager.reset(new AsyncCallback<Void>() {
+		// public void onFailure(Throwable caught) {
+		// // TODO Auto-generated method stub
+		//				
+		// }
+		//			
+		// public void onSuccess(Void result) {
+		// // TODO Auto-generated method stub
+		//				
+		// }
+		// });
+
+		// competitionManager.get("/IOI/", new AsyncCallback<Directory>() {
+		// public void onFailure(Throwable caught) {
+		// getText.setText("get() exception: " + caught.toString());
+		// }
+		//
+		// public void onSuccess(Directory result) {
+		// getText.setText("get() completed successfully: " + result.getId() +
+		// " " + result.getDirectories().size());
+		// item.setWidget(new HTML(result.getPath() + "  " + result.getName()));
+		// }
+		// });
+
+		mainPanel.setStyleName("RootPanel");
 
 		// final DialogBox addDialog = new DialogBox();
 		// final Button addButton = new Button("Add");
