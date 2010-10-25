@@ -1,88 +1,33 @@
 package treicco.client;
 
-import treicco.shared.Task;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
 
-public class AddTaskDialog extends DialogBox implements ClickHandler {
-	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
+public class AddTaskDialog extends Composite {
 
-	private DirectoryPanel listener;
+	private static AddTaskDialogUiBinder uiBinder = GWT.create(AddTaskDialogUiBinder.class);
 
-	private String parent = "/";
-
-	private TextBox shortname = new TextBox();
-
-	private TextBox longname = new TextBox();
-
-	private Button confirm = new Button("Add");
-
-	private Button cancel = new Button("Cancel");
-
-	public AddTaskDialog() {
-		super();
-
-		setText("Add task");
-		setAnimationEnabled(true);
-		setGlassEnabled(true);
-		setModal(true);
-
-		confirm.addClickHandler(this);
-		cancel.addClickHandler(this);
-
-		VerticalPanel vp = new VerticalPanel();
-		vp.setSpacing(5);
-
-		vp.add(new HTML("Codename"));
-		vp.add(shortname);
-		vp.add(new HTML("Name"));
-		vp.add(longname);
-
-		HorizontalPanel hp = new HorizontalPanel();
-		hp.setSpacing(5);
-
-		hp.add(confirm);
-		hp.add(cancel);
-
-		vp.add(hp);
-
-		// vp.setWidth("300px");
-		// vp.setHeight("200px");
-
-		setWidget(vp);
+	interface AddTaskDialogUiBinder extends UiBinder<Widget, AddTaskDialog> {
 	}
 
-	void init(DirectoryPanel dw) {
-		this.listener = dw;
-		this.parent = dw.getPath();
-		this.shortname.setText("");
-		this.longname.setText("");
+	@UiField
+	Button button;
+
+	public AddTaskDialog(String firstName) {
+		initWidget(uiBinder.createAndBindUi(this));
+		button.setText(firstName);
 	}
 
-	public void onClick(ClickEvent event) {
-		if (event.getSource() == confirm) {
-			Task t = new Task(parent, shortname.getText());
-			t.setFullName(longname.getText());
-
-			competitionManager.createTask(t, new AsyncCallback<Void>() {
-				public void onFailure(Throwable caught) {
-					setText("ERROR_MESSAGE");
-				}
-
-				public void onSuccess(Void v) {
-					listener.showChildren();
-				}
-			});
-		}
-		this.hide();
+	@UiHandler("button")
+	void onClick(ClickEvent e) {
+		Window.alert("Hello!");
 	}
+
 }

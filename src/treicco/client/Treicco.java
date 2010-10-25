@@ -60,7 +60,8 @@ public class Treicco implements EntryPoint {
 
 		// Add it to the root panel.
 		mainPanel.addWest(new DirectoryPanel(), 250);
-		History.newItem("/");
+
+		// History.newItem("/");
 
 		mainPanel.add(new TaskPanel());
 
@@ -221,5 +222,11 @@ public class Treicco implements EntryPoint {
 		// MyHandler handler = new MyHandler();
 		// sendButton.addClickHandler(handler);
 		// nameField.addKeyUpHandler(handler);
+
+		if (History.getToken().length() == 0) {
+			History.newItem("/");
+		} else {
+			History.fireCurrentHistoryState();
+		}
 	}
 }
