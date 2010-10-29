@@ -63,7 +63,7 @@ public class Treicco implements EntryPoint {
 
 		// History.newItem("/");
 
-		mainPanel.add(new TaskPanel());
+		mainPanel.add(new MainPanel());
 
 		competitionManager.init(new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {

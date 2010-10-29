@@ -28,7 +28,8 @@ public class DirectoryPanel extends ResizeComposite {
 	interface DirectoryPanelUiBinder extends UiBinder<Widget, DirectoryPanel> {
 	}
 
-	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
+	private final DirectoryManagerAsync directoryManager = GWT.create(DirectoryManager.class);
+	private final TaskManagerAsync taskManager = GWT.create(TaskManager.class);
 
 	private String path = "/";
 
@@ -96,7 +97,7 @@ public class DirectoryPanel extends ResizeComposite {
 
 			final String child_path = target_path.substring(0, target_path.indexOf("/", path.length()) + 1);
 
-			competitionManager.readDirectory(child_path, new AsyncCallback<Directory>() {
+			directoryManager.read(child_path, new AsyncCallback<Directory>() {
 				public void onFailure(Throwable caught) {
 					// setText("ERROR_MESSAGE");
 				}
@@ -128,7 +129,7 @@ public class DirectoryPanel extends ResizeComposite {
 	}
 
 	public void showChildren() {
-		competitionManager.listDirectories(path, new AsyncCallback<ArrayList<Directory>>() {
+		directoryManager.list(path, new AsyncCallback<ArrayList<Directory>>() {
 			public void onFailure(Throwable caught) {
 				// setText("ERROR_MESSAGE");
 			}
@@ -137,7 +138,7 @@ public class DirectoryPanel extends ResizeComposite {
 				showDirectories(result);
 			}
 		});
-		competitionManager.listTasks(path, new AsyncCallback<ArrayList<Task>>() {
+		taskManager.list(path, new AsyncCallback<ArrayList<Task>>() {
 			public void onFailure(Throwable caught) {
 				// setText("ERROR_MESSAGE");
 			}

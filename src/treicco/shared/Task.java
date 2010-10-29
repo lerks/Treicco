@@ -5,6 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+//import com.google.appengine.api.datastore.Text;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
@@ -60,12 +61,20 @@ public class Task implements IsSerializable {
 		return id;
 	}
 
-	public void setFullName(String longName) {
-		this.longName = longName;
+	public void setFullName(String fullName) {
+		this.name = fullName;
 	}
 
 	public String getFullName() {
-		return longName;
+		return name;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	@PrimaryKey
@@ -73,5 +82,8 @@ public class Task implements IsSerializable {
 	private String id;
 
 	@Persistent
-	private String longName;
+	private String name;
+	
+	@Persistent
+	private String description;
 }

@@ -2,37 +2,63 @@ package treicco.client;
 
 import java.util.ArrayList;
 
-import treicco.shared.Directory;
 import treicco.shared.Task;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * LCRUD interface for Directories and Tasks
+ * RESTful interface for LCRUD operations on Tasks
  * 
- * @author luca
+ * @author Luca Wehrstedt
  * 
  */
-@RemoteServiceRelativePath("task")
+@RemoteServiceRelativePath("rest/task")
 public interface TaskManager extends RemoteService {
-	ArrayList<Directory> listDirectories(String targetPath);
-
-	ArrayList<Task> listTasks(String targetPath);
-
-	Directory readDirectory(String targetPath);
-
-	Task readTask(String targetPath);
-
-	void createDirectory(Directory d);
-
-	void createTask(Task d);
-
-	void deleteDirectory(Directory d);
-
-	void deleteTask(Task d);
+	/**
+	 * Get a list of Tasks from the specified path
+	 * 
+	 * @param targetPath the path where the list is located
+	 * @return the list of Tasks
+	 */
+	ArrayList<Task> list(String targetPath);
 	
+	/**
+	 * Get a Task from the specified path
+	 * 
+	 * @param targetPath the path where the Task is located
+	 * @return the Task
+	 */
+	Task read(String targetPath);
+	
+	/**
+	 * Create a Task
+	 * 
+	 * @param task the Task to be created
+	 */
+	void create(Task task);
+	
+	/**
+	 * Update a Task
+	 * 
+	 * @param task the Task to be updated
+	 */
+	void update(Task task);
+
+	/**
+	 * Delete a Task
+	 * 
+	 * @param task the Task to be deleted
+	 */
+	void delete(Task task);
+
+	/**
+	 * Create a root Task if it doesn't exists
+	 */
 	void init ();
 	
+	/**
+	 * Delete all Tasks except the root
+	 */
 	void reset ();
 }

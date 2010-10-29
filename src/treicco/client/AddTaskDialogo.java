@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddTaskDialogo extends DialogBox implements ClickHandler {
-	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
+	private final DirectoryManagerAsync directoryManager = GWT.create(DirectoryManager.class);
+	private final TaskManagerAsync taskManager = GWT.create(TaskManager.class);
 
 	private DirectoryPanel listener;
 
@@ -73,7 +74,7 @@ public class AddTaskDialogo extends DialogBox implements ClickHandler {
 			Task t = new Task(parent, shortname.getText());
 			t.setFullName(longname.getText());
 
-			competitionManager.createTask(t, new AsyncCallback<Void>() {
+			taskManager.create(t, new AsyncCallback<Void>() {
 				public void onFailure(Throwable caught) {
 					setText("ERROR_MESSAGE");
 				}

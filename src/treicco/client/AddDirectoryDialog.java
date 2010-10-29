@@ -20,7 +20,8 @@ public class AddDirectoryDialog {
 	interface AddDirectoryDialogUiBinder extends UiBinder<Widget, AddDirectoryDialog> {
 	}
 
-	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
+	private final DirectoryManagerAsync directoryManager = GWT.create(DirectoryManager.class);
+	private final TaskManagerAsync taskManager = GWT.create(TaskManager.class);
 
 	private DirectoryPanel listener;
 
@@ -56,7 +57,7 @@ public class AddDirectoryDialog {
 		Directory d = new Directory(listener.getPath(), codename.getText());
 		d.setFullName(fullname.getText());
 
-		competitionManager.createDirectory(d, new AsyncCallback<Void>() {
+		directoryManager.create(d, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
 				// setText("ERROR_MESSAGE");
 			}

@@ -5,46 +5,19 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import treicco.client.TaskManager;
 import treicco.shared.Directory;
 import treicco.shared.Task;
 
-import javax.jdo.Query;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class TaskManagerImpl extends RemoteServiceServlet implements TaskManager {
-	private static final Logger log = Logger.getLogger(TaskManagerImpl.class.getName());
+public class TaskProvider extends RemoteServiceServlet implements TaskManager {
+	private static final Logger log = Logger.getLogger(DirectoryProvider.class.getName());
 
-	public ArrayList<Directory> listDirectories(String targetPath) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		log.info("Requested Directories in " + targetPath);
-
-		// Directory d = pm.detachCopy(pm.getObjectById(Directory.class,
-		// targetPath));
-
-		Directory d;
-		Query query = pm.newQuery(Directory.class);
-		query.setFilter("id == targetKey");
-		query.declareParameters("String targetKey");
-		List<Directory> results = (List<Directory>) query.execute(targetPath);
-		d = results.get(0);
-
-		ArrayList<Directory> result = new ArrayList<Directory>();
-
-		for (String child : d.getDirectories()) {
-			result.add(pm.detachCopy(pm.getObjectById(Directory.class, targetPath + child + "/")));
-		}
-
-		pm.close();
-
-		return result;
-	}
-
-	public ArrayList<Task> listTasks(String targetPath) {
+	public ArrayList<Task> list(String targetPath) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		log.info("Requested Tasks in " + targetPath);
@@ -70,31 +43,7 @@ public class TaskManagerImpl extends RemoteServiceServlet implements TaskManager
 		return result;
 	}
 
-	public Directory readDirectory(String targetPath) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		log.info("Requested Directory " + targetPath);
-
-		// Directory d = pm.detachCopy(pm.getObjectById(Directory.class,
-		// targetPath));
-
-		Directory d1;
-		Query query = pm.newQuery(Directory.class);
-		query.setFilter("id == targetKey");
-		query.declareParameters("String targetKey");
-		List<Directory> results = (List<Directory>) query.execute(targetPath);
-		d1 = results.get(0);
-		Directory d = pm.detachCopy(d1);
-
-		pm.close();
-
-		d.setDirectories(null);
-		d.setTasks(null);
-
-		return d;
-	}
-
-	public Task readTask(String targetPath) {
+	public Task read(String targetPath) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		log.info("Requested Task " + targetPath);
@@ -114,43 +63,7 @@ public class TaskManagerImpl extends RemoteServiceServlet implements TaskManager
 		return t;
 	}
 
-	public void createDirectory(Directory d) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		try {
-			Directory parent = pm.getObjectById(Directory.class, d.getParent());
-
-			ArrayList<String> parent_children = parent.getDirectories();
-			parent_children.add(d.getName());
-			parent.setDirectories(parent_children);
-
-			pm.makePersistent(d);
-
-			log.info("Succesful creation of Directory " + d.getName() + " in " + d.getParent());
-		} finally {
-			pm.close();
-		}
-	}
-
-	public void deleteDirectory(Directory d) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		try {
-			Directory parent = pm.getObjectById(Directory.class, d.getParent());
-
-			ArrayList<String> parent_children = parent.getDirectories();
-			parent_children.remove(d.getName());
-			parent.setDirectories(parent_children);
-
-			pm.deletePersistent(d);
-
-			log.info("Succesful deletion of Directory " + d.getName() + " in " + d.getParent());
-		} finally {
-			pm.close();
-		}
-	}
-
-	public void createTask(Task t) {
+	public void create(Task t) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		try {
@@ -168,7 +81,7 @@ public class TaskManagerImpl extends RemoteServiceServlet implements TaskManager
 		}
 	}
 
-	public void deleteTask(Task t) {
+	public void delete(Task t) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		try {
@@ -228,5 +141,10 @@ public class TaskManagerImpl extends RemoteServiceServlet implements TaskManager
 		}
 		
 		init();
+	}
+
+	public void update(Task task) {
+		// TODO Auto-generated method stub
+		
 	}
 }
