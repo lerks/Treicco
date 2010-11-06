@@ -11,31 +11,40 @@ import com.google.gwt.user.client.ui.ResizeComposite;
 
 public class MainPanel extends ResizeComposite {
 	private DeckPanel deckpanel = new DeckPanel();
-	
-	private TaskPanel taskpanel = new TaskPanel ();
-	
-	
-	
-	public MainPanel () {
+
+	private TaskReadPanel taskpanel = new TaskReadPanel();
+
+	private DirectoryReadPanel directorypanel = new DirectoryReadPanel();
+
+	public MainPanel() {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			public void onValueChange(ValueChangeEvent<String> event) {
 				GWT.log("MainPanel's History handler called with argument " + event.getValue());
 
-				taskpanel.setPath(event.getValue());
+				if (event.getValue().endsWith("/")) {
+					// It's a directory
+					directorypanel.setPath(event.getValue());
+					deckpanel.showWidget(0);
+				} else {
+					// It's a task
+					taskpanel.setPath(event.getValue());
+					deckpanel.showWidget(1);
+				}
 			}
 		});
-		
-		LayoutPanel lp = new LayoutPanel ();
-		
-		lp.add (deckpanel);
+
+		LayoutPanel lp = new LayoutPanel();
+
+		lp.add(deckpanel);
 		lp.setWidgetLeftRight(deckpanel, 5, Unit.PX, 0, Unit.PX);
 		lp.setWidgetTopBottom(deckpanel, 5, Unit.PX, 5, Unit.PX);
-		
+
+		deckpanel.add(directorypanel);
 		deckpanel.add(taskpanel);
 		deckpanel.showWidget(0);
-		
+
 		lp.addStyleName("MainPanel");
-		
+
 		initWidget(lp);
 	}
 }

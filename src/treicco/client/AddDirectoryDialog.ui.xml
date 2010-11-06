@@ -2,21 +2,46 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		.important {
-			font-weight: bold;
+		.MainPanel {
+			margin: 5px;
+		}
+		
+		.LargeSpacing {
+			margin-top: 10px;
+		}
+		
+		.SmallSpacing {
+			margin-top: 3px;
+		}
+		
+		.RightFloat {
+			margin-right: 10px;
+		}
+		
+		.ButtonWidth {
+			width: 120px;
+		}
+		
+		.InputWidth {
+			width: 240px;
 		}
 	</ui:style>
-	<g:DialogBox animationEnabled="true" glassEnabled="true" autoHide="false" modal="true">
+	<g:DialogBox animationEnabled="true" glassEnabled="true"
+		autoHide="false" modal="true">
 		<g:caption>
 			<b>Add Directory</b>
 		</g:caption>
-		<g:FlowPanel>
-			<g:Label>Code Name</g:Label>
-			<g:TextBox ui:field="codename"></g:TextBox>
-			<g:Label>Full Name</g:Label>
-			<g:TextBox ui:field="fullname"></g:TextBox>
-			<g:Button ui:field="okButton">Okay</g:Button>
-			<g:Button ui:field="cancelButton">Cancel</g:Button>
+		<g:FlowPanel addStyleNames="{style.MainPanel}">
+			<g:FlowPanel>
+				<g:Label>Code Name</g:Label>
+				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="codename"></g:TextBox>
+				<g:Label addStyleNames="{style.LargeSpacing}">Full Name</g:Label>
+				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="fullname"></g:TextBox>
+			</g:FlowPanel>
+			<g:FlowPanel addStyleNames="{style.LargeSpacing}">
+				<g:Button addStyleNames="{style.ButtonWidth} {style.RightFloat}" ui:field="okButton">Okay</g:Button>
+				<g:Button addStyleNames="{style.ButtonWidth}" ui:field="cancelButton">Cancel</g:Button>
+			</g:FlowPanel>
 		</g:FlowPanel>
 	</g:DialogBox>
 

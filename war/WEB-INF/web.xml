@@ -36,25 +36,16 @@
 	</security-constraint>
 
 	<!-- Servlets -->
-	<servlet>
-		<servlet-name>DirectoryManager</servlet-name>
-		<servlet-class>treicco.server.DirectoryProvider</servlet-class>
-	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>DirectoryManager</servlet-name>
-		<url-pattern>/treicco/rest/directory</url-pattern>
-	</servlet-mapping>
-	
 	<servlet>
-		<servlet-name>TaskManager</servlet-name>
-		<servlet-class>treicco.server.TaskProvider</servlet-class>
+		<servlet-name>requestFactoryServlet</servlet-name>
+		<servlet-class>com.google.gwt.requestfactory.server.RequestFactoryServlet</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
-		<servlet-name>TaskManager</servlet-name>
-		<url-pattern>/treicco/rest/task</url-pattern>
+		<servlet-name>requestFactoryServlet</servlet-name>
+		<url-pattern>/gwtRequest</url-pattern>
 	</servlet-mapping>
+
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

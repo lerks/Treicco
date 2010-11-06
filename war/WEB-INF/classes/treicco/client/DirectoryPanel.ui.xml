@@ -11,6 +11,8 @@
 		}
 		
 		.Parent {
+			overflow: hidden;
+			white-space: nowrap;
 			height: 18px;
 			margin-bottom: 5px;
 			background-color: #95B9DA;
@@ -29,6 +31,8 @@
 		}
 		
 		.Child {
+			overflow: hidden;
+			white-space: nowrap;
 			height: 18px;
 			margin-bottom: 5px;
 			margin-right: 5px;
@@ -44,6 +48,8 @@
 		}
 		
 		.Task {
+			overflow: hidden;
+			white-space: nowrap;
 			height: 18px;
 			margin-bottom: 5px;
 			margin-right: 5px;
@@ -63,7 +69,8 @@
 		<g:layer left='0px' right='0px' top='0px' bottom='29px'>
 			<g:FlowPanel>
 				<g:FlowPanel ui:field="parentsPanel">
-					<g:Hyperlink addStyleNames="{style.Parent} {style.LastParent}" text="Home Page" targetHistoryToken="/"></g:Hyperlink>
+					<g:Hyperlink addStyleNames="{style.Parent} {style.LastParent}"
+						text="Home Page" targetHistoryToken="/"></g:Hyperlink>
 				</g:FlowPanel>
 				<g:FlowPanel ui:field="childrenPanel">
 

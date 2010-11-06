@@ -1,10 +1,14 @@
 package treicco.client;
 
+import treicco.shared.CompetitionRequestFactory;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.requestfactory.shared.Receiver;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -26,12 +30,28 @@ public class Treicco implements EntryPoint {
 	 * Create a remote service proxy to talk to the server-side Greeting
 	 * service.
 	 */
-	private final TaskManagerAsync competitionManager = GWT.create(TaskManager.class);
+	// private final TaskManagerAsync competitionManager =
+	// GWT.create(TaskManager.class);
+
+	static final EventBus eventBus = new SimpleEventBus();
+	static final CompetitionRequestFactory requestFactory = GWT.create(CompetitionRequestFactory.class);
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		requestFactory.initialize(eventBus);
+		
+		if (History.getToken().length() == 0)
+			History.newItem("/", false);
+		
+		requestFactory.directoryRequest().init().fire(new Receiver<Void>() {
+			@Override
+			public void onSuccess(Void response) {
+				
+			}
+		});
+
 		final DockLayoutPanel mainPanel = new DockLayoutPanel(Unit.PX);
 		RootLayoutPanel.get().add(mainPanel);
 
@@ -65,17 +85,17 @@ public class Treicco implements EntryPoint {
 
 		mainPanel.add(new MainPanel());
 
-		competitionManager.init(new AsyncCallback<Void>() {
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		// competitionManager.init(new AsyncCallback<Void>() {
+		// public void onFailure(Throwable caught) {
+		// // TODO Auto-generated method stub
+		//
+		// }
+		//
+		// public void onSuccess(Void result) {
+		// // TODO Auto-generated method stub
+		//
+		// }
+		// });
 
 		// competitionManager.reset(new AsyncCallback<Void>() {
 		// public void onFailure(Throwable caught) {
@@ -223,10 +243,25 @@ public class Treicco implements EntryPoint {
 		// sendButton.addClickHandler(handler);
 		// nameField.addKeyUpHandler(handler);
 
-		if (History.getToken().length() == 0) {
-			History.newItem("/");
-		} else {
-			History.fireCurrentHistoryState();
-		}
+		// DirectoryRequest request = requestFactory.directoryRequest();
+		// DirectoryProxy newEmployee = request.create(DirectoryProxy.class);
+		//
+		// newEmployee.setName("Home Page");
+		// Request<Void> createReq = request.create("/").using(newEmployee);
+		//
+		// createReq.fire(new Receiver<Void>() {
+		// @Override
+		// public void onSuccess(Void response) {
+		// titleText.setText("OK");
+		// }
+		// });
+
+		//		
+		// request.read("/pippo/").fire(new Receiver<DirectoryProxy>() {
+		// @Override
+		// public void onSuccess(DirectoryProxy response) {
+		// titleText.setText(response.getName());
+		// };
+		// });
 	}
 }
