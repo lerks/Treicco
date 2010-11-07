@@ -39,7 +39,7 @@ public class DirectoryReadPanel extends Composite {
 	public void setPath(String targetPath) {
 		Treicco.requestFactory.directoryRequest().findDirectory(targetPath).fire(new Receiver<DirectoryProxy>() {
 			public void onSuccess(DirectoryProxy response) {
-				title.setText(response.getName());
+				title.setText(response.getFullName());
 
 				if (response.getStartDate() != null && response.getEndDate() != null) {
 					date.setText(response.getStartDate().toString() + " to " + response.getEndDate().toString());

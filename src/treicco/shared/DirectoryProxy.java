@@ -12,13 +12,13 @@ public interface DirectoryProxy extends EntityProxy {
 
 	public String getId();
 
-	public String getName();
+	public String getShortName();
 
-	public void setName(String name);
+	public void setShortName(String shortName);
 
 	public String getFullName();
 
-	public void setFullName(String fullname);
+	public void setFullName(String fullName);
 
 	public Date getStartDate();
 

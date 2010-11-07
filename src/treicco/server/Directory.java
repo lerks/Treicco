@@ -15,17 +15,27 @@ import treicco.shared.CompetitionSyntax;
 
 import com.google.appengine.api.datastore.Link;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 @PersistenceCapable(detachable = "true")
 public class Directory {
 	@PrimaryKey
 	@Persistent
+	@Pattern(regexp = "/([a-zA-Z0-9\\_]{3,}/)+")
+	// Not used
 	private String id;
 
 	@Persistent
-	private String name;
+	@NotNull
+	@Size(min = 3, message = "The Short Name must be at least 3 character long")
+	private String shortName;
 
 	@Persistent
-	private String longName;
+	@NotNull
+	@Size(min = 3)
+	private String fullName;
 
 	@Persistent
 	private ArrayList<String> directories;
@@ -59,20 +69,20 @@ public class Directory {
 		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
-	public String getName() {
-		return name;
+	public String getShortName() {
+		return shortName;
 	}
 
-	public void setFullName(String fullname) {
-		this.longName = fullname;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getFullName() {
-		return longName;
+		return fullName;
 	}
 
 	public ArrayList<String> getDirectories() {
@@ -200,8 +210,8 @@ public class Directory {
 
 		return result;
 	}
-	
-	public static void init () {
+
+	public static void init() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		log.info("Init");
@@ -213,19 +223,23 @@ public class Directory {
 		query.setFilter("id == targetKey");
 		query.declareParameters("String targetKey");
 		List<Directory> results = (List<Directory>) query.execute("/");
-		
-		if (results.size() == 0)
-		{
-			Directory d = new Directory ();
+
+		if (results.size() == 0) {
+			Directory d = new Directory();
 			d.id = "/";
-			d.name = "Home Page";
+			d.shortName = "Home Page";
+			d.fullName = "Home Page";
 			pm.makePersistent(d);
 		}
 
 		pm.close();
 	}
-	
+
 	public void create(String id) {
+		if (!id.matches("/([a-zA-Z0-9\\_]{3,}/)+")) {
+			throw new IllegalArgumentException("ID is malformed: " + id);
+		}
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		try {

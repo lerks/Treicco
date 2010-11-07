@@ -29,6 +29,9 @@ public class AddDirectoryDialog {
 	TextBox codename;
 
 	@UiField
+	TextBox shortname;
+
+	@UiField
 	TextBox fullname;
 
 	@UiField
@@ -48,6 +51,7 @@ public class AddDirectoryDialog {
 	void init(DirectoryPanel dl) {
 		this.listener = dl;
 		this.codename.setText("");
+		this.shortname.setText("");
 		this.fullname.setText("");
 		dialog.center();
 	}
@@ -56,7 +60,8 @@ public class AddDirectoryDialog {
 	void okClick(ClickEvent e) {
 		DirectoryRequest dr = Treicco.requestFactory.directoryRequest();
 		DirectoryProxy d = dr.create(DirectoryProxy.class);
-		d.setName(fullname.getText());
+		d.setShortName(shortname.getText());
+		d.setFullName(fullname.getText());
 
 		dr.create(CompetitionSyntax.composeDirectoryId(listener.getPath(), codename.getText())).using(d).fire (new Receiver<Void>()
 		{

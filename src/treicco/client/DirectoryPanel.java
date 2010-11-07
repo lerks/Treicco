@@ -102,7 +102,7 @@ public class DirectoryPanel extends ResizeComposite {
 			Treicco.requestFactory.directoryRequest().findDirectory(child_path).fire(new Receiver<DirectoryProxy>() {
 				@Override
 				public void onSuccess(DirectoryProxy d) {
-					Hyperlink h = new Hyperlink(d.getName(), d.getId());
+					Hyperlink h = new Hyperlink(d.getShortName(), d.getId());
 					h.addStyleName(style.Parent());
 
 					parentsPanel.getWidget(parentsPanel.getWidgetCount() - 1).removeStyleName(style.LastParent());
@@ -143,7 +143,7 @@ public class DirectoryPanel extends ResizeComposite {
 
 	private void showDirectories(List<DirectoryProxy> response) {
 		for (DirectoryProxy d : response) {
-			Hyperlink h = new Hyperlink(d.getName(), d.getId());
+			Hyperlink h = new Hyperlink(d.getShortName(), d.getId());
 			h.addStyleName(style.Child());
 			childrenPanel.add(h);
 		}

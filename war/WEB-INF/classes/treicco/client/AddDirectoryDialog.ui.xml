@@ -35,6 +35,8 @@
 			<g:FlowPanel>
 				<g:Label>Code Name</g:Label>
 				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="codename"></g:TextBox>
+				<g:Label addStyleNames="{style.LargeSpacing}">Short Name</g:Label>
+				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="shortname"></g:TextBox>
 				<g:Label addStyleNames="{style.LargeSpacing}">Full Name</g:Label>
 				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="fullname"></g:TextBox>
 			</g:FlowPanel>
