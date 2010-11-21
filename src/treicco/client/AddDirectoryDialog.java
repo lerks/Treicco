@@ -44,7 +44,7 @@ public class AddDirectoryDialog {
 	DialogBox dialog;
 
 	public AddDirectoryDialog() {
-		dialog = (DialogBox)uiBinder.createAndBindUi(this);
+		dialog = (DialogBox) uiBinder.createAndBindUi(this);
 		// initWidget(dialog);
 	}
 
@@ -63,11 +63,9 @@ public class AddDirectoryDialog {
 		d.setShortName(shortname.getText());
 		d.setFullName(fullname.getText());
 
-		dr.create(CompetitionSyntax.composeDirectoryId(listener.getPath(), codename.getText())).using(d).fire (new Receiver<Void>()
-		{
+		dr.create(listener.getPath(), codename.getText()).using(d).fire(new Receiver<Void>() {
 			@Override
-			public void onSuccess(Void v)
-			{
+			public void onSuccess(Void v) {
 				History.newItem(CompetitionSyntax.composeDirectoryId(listener.getPath(), codename.getText()));
 			}
 		});
@@ -80,11 +78,11 @@ public class AddDirectoryDialog {
 		dialog.hide();
 	}
 
-//	void show() {
-//		dialog.center();
-//	}
+	// void show() {
+	// dialog.center();
+	// }
 
-//	void hide() {
-//		dialog.hide();
-//	}
+	// void hide() {
+	// dialog.hide();
+	// }
 }

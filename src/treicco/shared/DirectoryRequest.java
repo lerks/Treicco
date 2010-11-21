@@ -12,15 +12,11 @@ import com.google.gwt.requestfactory.shared.Service;
 @Service(Directory.class)
 public interface DirectoryRequest extends RequestContext {
 
-	Request<DirectoryProxy> findDirectory(String path);
+	Request<DirectoryProxy> findDirectory(String parent, String codeName);
 
-	Request<List<DirectoryProxy>> listChildren(String parent);
+	Request<List<DirectoryProxy>> listDirectories(String parent);
 
-	Request<List<TaskProxy>> listTasks(String parent);
-
-	Request<Void> init();
-
-	InstanceRequest<DirectoryProxy, Void> create(String id);
+	InstanceRequest<DirectoryProxy, Void> create(String parent, String codeName);
 
 	InstanceRequest<DirectoryProxy, Void> update();
 

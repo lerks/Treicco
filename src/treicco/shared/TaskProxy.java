@@ -8,11 +8,17 @@ import com.google.gwt.requestfactory.shared.ProxyFor;
 @ProxyFor(Task.class)
 public interface TaskProxy extends EntityProxy {
 
-	public String getId();
+	public String getParent();
 
-	public String getName();
+	public String getCodeName();
 
-	public void setName(String name);
+	public String getShortName();
+
+	public void setShortName(String shortName);
+
+	public String getFullName();
+
+	public void setFullName(String fullName);
 
 	public String getDescription();
 

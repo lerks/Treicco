@@ -5,6 +5,15 @@
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/luka/Development/treicco/war/WEB-INF/lib/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.2.jar" sourcepath="/home/luca/Sources/objectify-2.2.2/src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/luca/Sources/objectify-2.2.2/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/validation-api-1.0.0.GA.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/luca/Sources/hibernate-validator-4.1.0.Final/docs/api/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

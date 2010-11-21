@@ -1,176 +1,144 @@
 package treicco.server;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.google.appengine.api.datastore.Text;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyService;
 
-@PersistenceCapable(detachable = "true")
+@Entity
 public class Task {
-	@PrimaryKey
-	@Persistent
+	@Id
+	// @NotNull
+	// @Pattern(regexp = "(/[a-zA-Z0-9_]{3,})+")
 	private String id;
 
-	@Persistent
-	private String name;
+	// @NotNull
+	// @Pattern(regexp = "(/[a-zA-Z0-9_]{3,})+/")
+	private String parent;
 
-	@Persistent
+	// @NotNull
+	// @Pattern(regexp = "[a-zA-Z0-9\\_]{3,}")
+	private String codeName;
+
+	@NotNull
+	@Size(min = 3)
+	private String shortName;
+
+	@NotNull
+	@Size(min = 3)
+	private String fullName;
+
 	private Text description;
 
-	private static final Logger log = Logger.getLogger(Directory.class.getName());
+	static {
+		ObjectifyService.register(Task.class);
+	}
 
+	private static final Logger log = Logger.getLogger(Task.class.getName());
+
+	// Needed by RequestFactory
 	public Task() {
 
 	}
 
+	// Needed by RequestFactory
 	public Integer getVersion() {
 		return new Integer(1);
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	// Needed by RequestFactory
 	public String getId() {
 		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getParent() {
+		return parent;
 	}
 
-	public String getName() {
-		return name;
+	public String getCodeName() {
+		return codeName;
 	}
 
-	public void setDescription(String description) {
-		this.description = new Text(description);
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getFullName() {
+		return fullName;
 	}
 
 	public String getDescription() {
 		return description.getValue();
 	}
 
-	public static Task findEntity(String id) {
-		return read(id);
+	public void setDescription(String description) {
+		this.description = new Text(description);
 	}
 
-	public static Task read(String targetPath) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+	public static Task findTask(String parent, String codeName) {
+		log.info("Requested Task " + codeName + " in " + parent);
 
-		log.info("Requested Directory " + targetPath);
+		Objectify o = ObjectifyService.begin();
 
-		// Directory d = pm.detachCopy(pm.getObjectById(Directory.class,
-		// targetPath));
-
-		Task t1;
-		Query query = pm.newQuery(Task.class);
-		query.setFilter("id == targetKey");
-		query.declareParameters("String targetKey");
-		List<Task> results = (List<Task>) query.execute(targetPath);
-		t1 = results.get(0);
-		Task t = pm.detachCopy(t1);
-
-		pm.close();
-
-		// d.setDirectories(null);
-		// d.setTasks(null);
+		Task t = o.get(Task.class, parent + codeName);
 
 		return t;
 	}
 
-	public static List<Task> listChildren(String targetPath) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+	public static List<Task> listTasks(String parent) {
+		log.info("Requested Tasks in " + parent);
 
-		log.info("Requested Directories in " + targetPath);
+		Objectify o = ObjectifyService.begin();
 
-		// Directory d = pm.detachCopy(pm.getObjectById(Directory.class,
-		// targetPath));
+		List<Task> l = o.query(Task.class).filter("parent", parent).order("codeName").list();
 
-		Directory d;
-		Query query = pm.newQuery(Directory.class);
-		query.setFilter("id == targetKey");
-		query.declareParameters("String targetKey");
-		List<Directory> results = (List<Directory>) query.execute(targetPath);
-		d = results.get(0);
-
-		ArrayList<Task> result = new ArrayList<Task>();
-
-		for (String child : d.getTasks()) {
-			result.add(pm.detachCopy(pm.getObjectById(Task.class, targetPath + child + "/")));
-		}
-
-		pm.close();
-
-		return result;
+		return l;
 	}
 
-	public void create(String id) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+	public void create(String parent, String codeName) {
+		log.info("Requested creation of Task " + codeName + " in " + parent);
 
-		try {
-			this.id = id;
-
-			// Directory parent = pm.getObjectById(Directory.class,
-			// this.getParent());
-			//
-			// ArrayList<String> parent_children = parent.directories;
-			// parent_children.add(d.getName());
-			// parent.setDirectories(parent_children);
-
-			pm.makePersistent(this);
-
-			// log.info("Succesful creation of Directory " + d.getName() +
-			// " in " + d.getParent());
-		} finally {
-			pm.close();
+		if (!codeName.matches("[a-zA-Z0-9\\_]{3,}")) {
+			throw new IllegalArgumentException("Codename is malformed: " + codeName);
 		}
+
+		Objectify o = ObjectifyService.begin();
+
+		this.parent = parent;
+		this.codeName = codeName;
+		this.id = parent + codeName;
+
+		o.put(this);
 	}
 
 	public void update() {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+		log.info("Requested update of Task " + codeName + " in " + parent);
 
-		try {
-			// DirectoryProxy parent = pm.getObjectById(DirectoryProxy.class,
-			// d.getParent());
-			//
-			// ArrayList<String> parent_children = parent.getDirectories();
-			// parent_children.remove(d.getName());
-			// parent.setDirectories(parent_children);
+		Objectify o = ObjectifyService.begin();
 
-			pm.deletePersistent(this);
-
-			// log.info("Succesful deletion of Directory " + d.getName() +
-			// " in " + d.getParent());
-		} finally {
-			pm.close();
-		}
+		o.put(this);
 	}
 
 	public void delete() {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+		log.info("Requested deletion of Task " + codeName + " in " + parent);
 
-		try {
-			// DirectoryProxy parent = pm.getObjectById(DirectoryProxy.class,
-			// d.getParent());
-			//
-			// ArrayList<String> parent_children = parent.getDirectories();
-			// parent_children.remove(d.getName());
-			// parent.setDirectories(parent_children);
+		Objectify o = ObjectifyService.begin();
 
-			pm.deletePersistent(this);
-
-			// log.info("Succesful deletion of Directory " + d.getName() +
-			// " in " + d.getParent());
-		} finally {
-			pm.close();
-		}
+		o.delete(this);
 	}
 }

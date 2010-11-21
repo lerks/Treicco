@@ -25,7 +25,7 @@ public class CompetitionSyntax {
 		else
 			return id.substring(0, id.lastIndexOf("/", id.length() - 1) + 1);
 	}
-	
+
 	public static String extractDirectory(String id) {
 		return id.substring(0, id.lastIndexOf("/", id.length() - 1) + 1);
 	}

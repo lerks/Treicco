@@ -14,7 +14,7 @@ public class MainPanel extends ResizeComposite {
 
 	private TaskReadPanel taskpanel = new TaskReadPanel();
 
-	private DirectoryReadPanel directorypanel = new DirectoryReadPanel();
+	private DirectoryWritePanel directorypanel = new DirectoryWritePanel();
 
 	public MainPanel() {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {

@@ -1,5 +1,6 @@
 package treicco.client;
 
+import treicco.shared.CompetitionSyntax;
 import treicco.shared.DirectoryProxy;
 
 import com.google.gwt.core.client.GWT;
@@ -37,7 +38,10 @@ public class DirectoryReadPanel extends Composite {
 	}
 
 	public void setPath(String targetPath) {
-		Treicco.requestFactory.directoryRequest().findDirectory(targetPath).fire(new Receiver<DirectoryProxy>() {
+		if (targetPath.equals("/"))
+			return;
+
+		Treicco.requestFactory.directoryRequest().findDirectory(CompetitionSyntax.extractParent(targetPath), CompetitionSyntax.extractCodeName(targetPath)).fire(new Receiver<DirectoryProxy>() {
 			public void onSuccess(DirectoryProxy response) {
 				title.setText(response.getFullName());
 

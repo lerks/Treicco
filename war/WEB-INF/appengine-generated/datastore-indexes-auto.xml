@@ -1,4 +1,17 @@
-<!-- Indices written at Sun, 7 Nov 2010 17:47:44 UTC -->
+<!-- Indices written at Sat, 20 Nov 2010 19:18:10 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="Task" ancestor="false" source="auto">
+        <property name="parent" direction="asc"/>
+        <property name="codeName" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="Directory" ancestor="false" source="auto">
+        <property name="parent" direction="asc"/>
+        <property name="codeName" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

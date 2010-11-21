@@ -7,7 +7,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.requestfactory.shared.Receiver;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -41,16 +40,9 @@ public class Treicco implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		requestFactory.initialize(eventBus);
-		
+
 		if (History.getToken().length() == 0)
 			History.newItem("/", false);
-		
-		requestFactory.directoryRequest().init().fire(new Receiver<Void>() {
-			@Override
-			public void onSuccess(Void response) {
-				
-			}
-		});
 
 		final DockLayoutPanel mainPanel = new DockLayoutPanel(Unit.PX);
 		RootLayoutPanel.get().add(mainPanel);

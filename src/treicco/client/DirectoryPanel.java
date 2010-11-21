@@ -97,19 +97,19 @@ public class DirectoryPanel extends ResizeComposite {
 			// tree
 			GWT.log("The given path is below the current position: " + this.path);
 
-			final String child_path = target_path.substring(0, target_path.indexOf("/", path.length()) + 1);
+			final String child_name = target_path.substring(path.length(), target_path.indexOf("/", path.length()));
 
-			Treicco.requestFactory.directoryRequest().findDirectory(child_path).fire(new Receiver<DirectoryProxy>() {
+			Treicco.requestFactory.directoryRequest().findDirectory(path, child_name).fire(new Receiver<DirectoryProxy>() {
 				@Override
 				public void onSuccess(DirectoryProxy d) {
-					Hyperlink h = new Hyperlink(d.getShortName(), d.getId());
+					Hyperlink h = new Hyperlink(d.getShortName(), d.getParent() + d.getCodeName() + "/");
 					h.addStyleName(style.Parent());
 
 					parentsPanel.getWidget(parentsPanel.getWidgetCount() - 1).removeStyleName(style.LastParent());
 					parentsPanel.add(h);
 					parentsPanel.getWidget(parentsPanel.getWidgetCount() - 1).addStyleName(style.LastParent());
 
-					path = child_path;
+					path += child_name + "/";
 					setPath(target_path);
 				}
 			});
@@ -128,13 +128,13 @@ public class DirectoryPanel extends ResizeComposite {
 	}
 
 	public void showChildren() {
-		Treicco.requestFactory.directoryRequest().listChildren(path).fire(new Receiver<List<DirectoryProxy>>() {
+		Treicco.requestFactory.directoryRequest().listDirectories(path).fire(new Receiver<List<DirectoryProxy>>() {
 			public void onSuccess(List<DirectoryProxy> response) {
 				showDirectories(response);
 			};
 		});
 
-		Treicco.requestFactory.directoryRequest().listTasks(path).fire(new Receiver<List<TaskProxy>>() {
+		Treicco.requestFactory.taskRequest().listTasks(path).fire(new Receiver<List<TaskProxy>>() {
 			public void onSuccess(List<TaskProxy> response) {
 				showTasks(response);
 			};
@@ -143,7 +143,7 @@ public class DirectoryPanel extends ResizeComposite {
 
 	private void showDirectories(List<DirectoryProxy> response) {
 		for (DirectoryProxy d : response) {
-			Hyperlink h = new Hyperlink(d.getShortName(), d.getId());
+			Hyperlink h = new Hyperlink(d.getShortName(), d.getParent() + d.getCodeName() + "/");
 			h.addStyleName(style.Child());
 			childrenPanel.add(h);
 		}
@@ -151,7 +151,7 @@ public class DirectoryPanel extends ResizeComposite {
 
 	private void showTasks(List<TaskProxy> children) {
 		for (TaskProxy t : children) {
-			Hyperlink h = new Hyperlink(t.getName(), t.getId());
+			Hyperlink h = new Hyperlink(t.getShortName(), t.getParent() + t.getCodeName());
 			h.addStyleName(style.Task());
 			tasksPanel.add(h);
 		}

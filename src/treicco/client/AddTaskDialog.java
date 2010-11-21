@@ -56,13 +56,12 @@ public class AddTaskDialog {
 	void okClick(ClickEvent e) {
 		TaskRequest tr = Treicco.requestFactory.taskRequest();
 		TaskProxy t = tr.create(TaskProxy.class);
-		t.setName(fullname.getText());
+		t.setShortName(codename.getText()); // FIXME shortname
+		t.setFullName(fullname.getText());
 
-		tr.create(CompetitionSyntax.composeTaskId(listener.getPath(), codename.getText())).using(t).fire (new Receiver<Void>()
-		{
+		tr.create(listener.getPath(), codename.getText()).using(t).fire(new Receiver<Void>() {
 			@Override
-			public void onSuccess(Void v)
-			{
+			public void onSuccess(Void v) {
 				History.newItem(CompetitionSyntax.composeTaskId(listener.getPath(), codename.getText()));
 			}
 		});
