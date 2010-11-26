@@ -23,7 +23,7 @@ public class AddTaskDialog {
 	interface AddDirectoryDialogUiBinder extends UiBinder<Widget, AddTaskDialog> {
 	}
 
-	private DirectoryPanel listener;
+//	private DirectoryPanel listener;
 
 	@UiField
 	TextBox codename;
@@ -45,26 +45,26 @@ public class AddTaskDialog {
 		// initWidget(dialog);
 	}
 
-	void init(DirectoryPanel dl) {
-		this.listener = dl;
-		this.codename.setText("");
-		this.fullname.setText("");
-		dialog.center();
-	}
+//	void init(DirectoryPanel dl) {
+//		this.listener = dl;
+//		this.codename.setText("");
+//		this.fullname.setText("");
+//		dialog.center();
+//	}
 
 	@UiHandler("okButton")
 	void okClick(ClickEvent e) {
-		TaskRequest tr = Treicco.requestFactory.taskRequest();
-		TaskProxy t = tr.create(TaskProxy.class);
-		t.setShortName(codename.getText()); // FIXME shortname
-		t.setFullName(fullname.getText());
+//		TaskRequest tr = Treicco.requestFactory.taskRequest();
+//		TaskProxy t = tr.create(TaskProxy.class);
+//		t.setShortName(codename.getText()); // FIXME shortname
+//		t.setFullName(fullname.getText());
 
-		tr.create(listener.getPath(), codename.getText()).using(t).fire(new Receiver<Void>() {
-			@Override
-			public void onSuccess(Void v) {
-				History.newItem(CompetitionSyntax.composeTaskId(listener.getPath(), codename.getText()));
-			}
-		});
+//		tr.create(listener.getPath(), codename.getText()).using(t).fire(new Receiver<Void>() {
+//			@Override
+//			public void onSuccess(Void v) {
+//				History.newItem(CompetitionSyntax.composeTaskId(listener.getPath(), codename.getText()));
+//			}
+//		});
 
 		dialog.hide();
 	}

@@ -10,6 +10,8 @@ import com.google.gwt.requestfactory.shared.ProxyFor;
 @ProxyFor(Directory.class)
 public interface DirectoryProxy extends EntityProxy {
 
+	public String getId ();
+
 	public String getParent();
 
 	public String getCodeName();

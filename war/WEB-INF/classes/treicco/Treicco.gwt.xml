@@ -5,6 +5,8 @@
 
 	<inherits name='com.google.gwt.requestfactory.RequestFactory' />
 
+	<inherits name='com.google.gwt.activity.Activity' />
+	<inherits name='com.google.gwt.place.Place' />
 
 	<!-- Inherit the default GWT style sheet.  You can change       -->
 	<!-- the theme of your GWT application by uncommenting          -->
@@ -21,5 +23,10 @@
 	<!-- Specify the paths for translatable code                    -->
 	<source path='client' />
 	<source path='shared' />
+
+	<!-- Use ClientFactoryImpl by default -->
+	<replace-with class="treicco.client.ClientFactoryImpl">
+		<when-type-is class="treicco.client.ClientFactory" />
+	</replace-with>
 
 </module>
