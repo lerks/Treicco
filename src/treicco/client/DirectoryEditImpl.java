@@ -2,38 +2,41 @@ package treicco.client;
 
 import java.util.Date;
 
+import treicco.shared.DirectoryProxy;
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.LeafValueEditor;
+import com.google.gwt.editor.ui.client.ValueBoxEditorDecorator;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class DirectoryViewImpl extends Composite implements DirectoryView {
+public class DirectoryEditImpl extends Composite implements Editor<DirectoryProxy>, DirectoryView {
 
-	interface DirectoryViewUiBinder extends UiBinder<Widget, DirectoryViewImpl> {
+	interface DirectoryEditUiBinder extends UiBinder<Widget, DirectoryEditImpl> {
 	}
 
-	private static DirectoryViewUiBinder uiBinder = GWT.create(DirectoryViewUiBinder.class);
+	private static DirectoryEditUiBinder uiBinder = GWT.create(DirectoryEditUiBinder.class);
 
 	DirectoryPresenter presenter;
 
 	@UiField
-	Label fullName;
+	ValueBoxEditorDecorator<String> shortName;
 
 	@UiField
-	Label date;
+	ValueBoxEditorDecorator<String> fullName;
 
 	@UiField
-	Label location;
+	ValueBoxEditorDecorator<String> location;
 
 	@UiField
-	Label website;
+	ValueBoxEditorDecorator<String> website;
 
-	public DirectoryViewImpl() {
+	public DirectoryEditImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
@@ -41,13 +44,18 @@ public class DirectoryViewImpl extends Composite implements DirectoryView {
 		this.presenter = presenter;
 	}
 
-	@UiHandler("edit")
-	void cancelClick(ClickEvent e) {
-		presenter.startEdit();
+	@UiHandler("commit")
+	public void commitChanges(ClickEvent e) {
+		presenter.commitEdit();
+	}
+
+	@UiHandler("cancel")
+	public void cancelChanges(ClickEvent e) {
+		presenter.stopEdit();
 	}
 
 	public LeafValueEditor<String> shortName() {
-		return null;
+		return shortName.asEditor();
 	}
 
 	public LeafValueEditor<String> fullName() {

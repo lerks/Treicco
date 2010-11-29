@@ -21,11 +21,12 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MainViewImpl extends Composite implements MainView {
-	private static MainViewUiBinder uiBinder = GWT.create(MainViewUiBinder.class);
 
 	interface MainViewUiBinder extends UiBinder<Widget, MainViewImpl> {
 	}
-	
+
+	private static MainViewUiBinder uiBinder = GWT.create(MainViewUiBinder.class);
+
 	MainPresenter presenter;
 
 	@UiField
@@ -62,8 +63,8 @@ public class MainViewImpl extends Composite implements MainView {
 	public MainViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-	public void setPresenter (MainPresenter presenter) {
+
+	public void setPresenter(MainPresenter presenter) {
 		this.presenter = presenter;
 	}
 
@@ -95,7 +96,7 @@ public class MainViewImpl extends Composite implements MainView {
 	}
 
 	public void setDirectories(List<DirectoryProxy> directories) {
-		childrenPanel.clear();
+		clearDirectories();
 		for (DirectoryProxy d : directories) {
 			Hyperlink h = new Hyperlink(d.getShortName(), d.getParent() + d.getCodeName() + "/");
 			h.addStyleName(style.Child());
@@ -103,13 +104,21 @@ public class MainViewImpl extends Composite implements MainView {
 		}
 	}
 
+	public void clearDirectories() {
+		childrenPanel.clear();
+	}
+
 	public void setTasks(List<TaskProxy> tasks) {
-		tasksPanel.clear();
+		clearTasks();
 		for (TaskProxy t : tasks) {
 			Hyperlink h = new Hyperlink(t.getShortName(), t.getParent() + t.getCodeName());
 			h.addStyleName(style.Task());
 			tasksPanel.add(h);
 		}
+	}
+
+	public void clearTasks() {
+		tasksPanel.clear();
 	}
 
 	public void setWidget(IsWidget w) {
@@ -120,9 +129,9 @@ public class MainViewImpl extends Composite implements MainView {
 			mainPanel.setWidgetTopBottom(w.asWidget(), 5, Unit.PX, 5, Unit.PX);
 		}
 	}
-	
+
 	@UiHandler("addDirectoryButton")
 	void addDirectoryClick(ClickEvent e) {
-		presenter.addDirectory ();
+		presenter.addDirectory();
 	}
 }

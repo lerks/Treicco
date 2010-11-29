@@ -17,13 +17,13 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class DirectoryCreateImpl {
 
-	private static DirectoryCreateImplUiBinder uiBinder = GWT.create(DirectoryCreateImplUiBinder.class);
-
 	interface DirectoryCreateImplUiBinder extends UiBinder<Widget, DirectoryCreateImpl> {
 	}
 
+	private static DirectoryCreateImplUiBinder uiBinder = GWT.create(DirectoryCreateImplUiBinder.class);
+
 	ClientFactory clientFactory;
-	
+
 	@UiField
 	TextBox codename;
 
@@ -42,7 +42,7 @@ public class DirectoryCreateImpl {
 	}
 
 	DirectoryPlace place;
-	
+
 	void init(DirectoryPlace place) {
 		this.place = place;
 		this.codename.setText("");

@@ -18,5 +18,9 @@ public interface MainView extends IsWidget, AcceptsOneWidget {
 
 	void setDirectories(List<DirectoryProxy> directories);
 
+	void clearDirectories();
+
 	void setTasks(List<TaskProxy> tasks);
+
+	void clearTasks();
 }

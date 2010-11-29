@@ -20,7 +20,6 @@ public class DirectoryPlace extends Place {
 		}
 	}
 
-	// FIXME Remove this c-tor and use the next one
 	public DirectoryPlace(String parent, String codeName) {
 		this.parent = new DirectoryPlace(parent);
 		this.codeName = codeName;
@@ -51,22 +50,25 @@ public class DirectoryPlace extends Place {
 	}
 
 	public DirectoryPlace stepTowards(DirectoryPlace target) {
-		return getChild (target.getId().substring(this.getId().length(), target.getId().indexOf("/", this.getId().length())));
+		return getChild(target.getId().substring(this.getId().length(), target.getId().indexOf("/", this.getId().length())));
 	}
 
 	public boolean equals(Object target) {
 		if (target instanceof DirectoryPlace) {
-			return ((DirectoryPlace) target).getId().equals(this.getId());
-		} else {
-			return false;
+			return this.isEqual((DirectoryPlace) target);
 		}
+		return false;
 	}
 
-	public boolean lessThan(DirectoryPlace target) {
-		if (target.getId().startsWith(this.getId())) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean isAncestor(DirectoryPlace target) {
+		return target.getId().startsWith(this.getId()) && !target.equals(this);
+	}
+
+	public boolean isAncestorOrEqual(DirectoryPlace target) {
+		return target.getId().startsWith(this.getId());
+	}
+
+	public boolean isEqual(DirectoryPlace target) {
+		return target.getId().equals(this.getId());
 	}
 }

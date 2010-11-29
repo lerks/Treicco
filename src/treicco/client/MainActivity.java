@@ -1,12 +1,12 @@
 package treicco.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import treicco.shared.DirectoryProxy;
 import treicco.shared.TaskProxy;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
@@ -17,6 +17,7 @@ public class MainActivity extends AbstractActivity implements MainPresenter, Pla
 
 	ClientFactory clientFactory;
 	DirectoryPlace place;
+
 	MainView mainView;
 
 	public MainActivity(DirectoryPlace place, ClientFactory clientFactory) {
@@ -31,7 +32,6 @@ public class MainActivity extends AbstractActivity implements MainPresenter, Pla
 	}
 
 	public void onPlaceChange(PlaceChangeEvent event) {
-		GWT.log("Caught a PlaceChangeEvent");
 		Place place = event.getNewPlace();
 
 		if (event.getNewPlace() instanceof DirectoryPlace) {
@@ -43,38 +43,41 @@ public class MainActivity extends AbstractActivity implements MainPresenter, Pla
 	}
 
 	public void setPlace(final DirectoryPlace newPlace) {
-		if (place.equals(newPlace)) {
-			showChildren();
+		while (!place.isAncestorOrEqual(newPlace)) {
+			place = place.getParent();
+			mainView.popParent();
+		}
 
-		} else if (place.lessThan(newPlace)) {
+		List<String> children = new ArrayList<String>();
+
+		while (!place.isEqual(newPlace)) {
 			place = place.stepTowards(newPlace);
+			children.add(place.getId());
+		}
 
-			clientFactory.getRequestFactory().directoryRequest().findDirectory(place.getParent().getId(), place.getCodeName()).fire(new Receiver<DirectoryProxy>() {
+		if (!children.isEmpty()) {
+			clientFactory.getRequestFactory().directoryRequest().findAllDirectories(children).fire(new Receiver<List<DirectoryProxy>>() {
 				@Override
-				public void onSuccess(DirectoryProxy d) {
-					mainView.pushParent(place.getId(), d.getShortName());
-
-					setPlace(newPlace);
+				public void onSuccess(List<DirectoryProxy> l) {
+					for (DirectoryProxy d : l) {
+						mainView.pushParent(d.getId(), d.getShortName());
+					}
 				}
 			});
-
-		} else {
-			place = place.getParent();
-
-			mainView.popParent();
-
-			setPlace(newPlace);
-
 		}
+
+		showChildren();
 	}
 
 	private void showChildren() {
+		mainView.clearDirectories();
 		clientFactory.getRequestFactory().directoryRequest().listDirectories(place.getId()).fire(new Receiver<List<DirectoryProxy>>() {
 			public void onSuccess(List<DirectoryProxy> response) {
 				mainView.setDirectories(response);
 			};
 		});
 
+		mainView.clearTasks();
 		clientFactory.getRequestFactory().taskRequest().listTasks(place.getId()).fire(new Receiver<List<TaskProxy>>() {
 			public void onSuccess(List<TaskProxy> response) {
 				mainView.setTasks(response);

@@ -1,5 +1,6 @@
 package treicco.server;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -123,14 +124,24 @@ public class Directory {
 		this.website = new Link(website);
 	}
 
-	public static Directory findDirectory(String parent, String codeName) {
-		log.info("Requested Directory " + codeName + " in " + parent);
+	public static Directory findDirectory(String id) {
+		log.info("Requested Directory " + id);
 
 		Objectify o = ObjectifyService.begin();
 
-		Directory d = o.get(Directory.class, parent + codeName + "/");
+		Directory d = o.get(Directory.class, id);
 
 		return d;
+	}
+
+	public static List<Directory> findAllDirectories(List<String> ids) {
+		List<Directory> l = new ArrayList<Directory>();
+
+		for (String id : ids) {
+			l.add(findDirectory(id));
+		}
+
+		return l;
 	}
 
 	public static List<Directory> listDirectories(String parent) {
@@ -139,6 +150,16 @@ public class Directory {
 		Objectify o = ObjectifyService.begin();
 
 		List<Directory> l = o.query(Directory.class).filter("parent", parent).order("codeName").list();
+
+		return l;
+	}
+
+	public static List<List<Directory>> listAllDirectories(List<String> parents) {
+		List<List<Directory>> l = new ArrayList<List<Directory>>();
+
+		for (String parent : parents) {
+			l.add(listDirectories(parent));
+		}
 
 		return l;
 	}
