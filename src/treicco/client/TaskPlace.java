@@ -41,9 +41,12 @@ public class TaskPlace extends Place {
 
 	public boolean equals(Object target) {
 		if (target instanceof TaskPlace) {
-			return ((TaskPlace) target).getId().equals(this.getId());
-		} else {
-			return false;
+			return this.isEqual((TaskPlace) target);
 		}
+		return false;
+	}
+
+	public boolean isEqual(TaskPlace target) {
+		return target.getId().equals(this.getId());
 	}
 }

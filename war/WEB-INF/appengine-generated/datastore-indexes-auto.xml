@@ -1,17 +1,23 @@
-<!-- Indices written at Mon, 29 Nov 2010 17:56:38 UTC -->
+<!-- Indices written at Thu, 2 Dec 2010 12:56:42 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 19 times in query history -->
+    <!-- Used 21 times in query history -->
+    <datastore-index kind="Task" ancestor="false" source="auto">
+        <property name="parent" direction="asc"/>
+        <property name="codeName" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 21 times in query history -->
     <datastore-index kind="Directory" ancestor="false" source="auto">
         <property name="parent" direction="asc"/>
         <property name="codeName" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 19 times in query history -->
-    <datastore-index kind="Task" ancestor="false" source="auto">
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Image" ancestor="false" source="auto">
         <property name="parent" direction="asc"/>
-        <property name="codeName" direction="asc"/>
+        <property name="name" direction="asc"/>
     </datastore-index>
 
 </datastore-indexes>

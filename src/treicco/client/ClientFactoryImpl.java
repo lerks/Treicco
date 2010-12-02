@@ -20,6 +20,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private final DirectoryView directoryView = new DirectoryViewImpl();
 	private final DirectoryView directoryEdit = new DirectoryEditImpl();
 	private final TaskView taskView = new TaskViewImpl();
+	private final TaskView taskEdit = new TaskEditImpl(this);
 
 	public ClientFactoryImpl() {
 		requestFactory.initialize(eventBus);
@@ -56,5 +57,9 @@ public class ClientFactoryImpl implements ClientFactory {
 
 	public TaskView getTaskView() {
 		return taskView;
+	}
+
+	public TaskView getTaskEdit() {
+		return taskEdit;
 	}
 }

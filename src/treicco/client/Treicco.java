@@ -8,7 +8,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 public class Treicco implements EntryPoint {
 
@@ -32,7 +32,7 @@ public class Treicco implements EntryPoint {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 		historyHandler.register(placeController, eventBus, defaultPlace);
 
-		RootLayoutPanel.get().add(appWidget);
+		RootPanel.get().add(appWidget);
 		// Goes to the place represented on URL else default place
 		historyHandler.handleCurrentHistory();
 	}

@@ -9,7 +9,6 @@ import com.google.gwt.requestfactory.shared.Receiver;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -59,7 +58,7 @@ public class DirectoryCreateImpl {
 		dr.create(place.getId(), codename.getText()).using(d).fire(new Receiver<Void>() {
 			@Override
 			public void onSuccess(Void v) {
-				History.newItem(place.getChild(codename.getText()).getId());
+				clientFactory.getPlaceController().goTo(new DirectoryPlace(place, codename.getText()));
 			}
 		});
 

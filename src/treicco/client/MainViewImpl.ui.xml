@@ -2,9 +2,63 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style type="treicco.client.MainViewImpl.DirectoryStyle">
-		.BottomBar {
-			background-color: #95B9DA;
+		.TitlePanel {
+			position: absolute;
+			top: 0px;
+			height: 100px;
+			left: 0px;
+			right: 0px;
+		}
+		
+		.NavigationPanel {
+			position: absolute;
+			top: 100px;
+			bottom: 29px;
+			left: 0px;
+			width: 250px;
+		}
+		
+		.NavigationPanelFloat {
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			width: 250px;
+		}
+		
+		.ButtonPanel {
 			position: fixed;
+			height: 29px;
+			bottom: 0px;
+			left: 0px;
+			width: 250px;
+			background-color: #95B9DA;
+		}
+		
+		.LeftButton {
+			position: absolute;
+			left: 10px;
+			right: 130px;
+			top: 3px;
+			bottom: 3px;
+		}
+		
+		.RightButton {
+			position: absolute;
+			left: 130px;
+			right: 10px;
+			top: 3px;
+			bottom: 3px;
+		}
+		
+		.RootPanel {
+			position: relative;
+			margin: 100px 0px 0px 250px;
+			padding: 5px;
+			background-color: #3D85C6;
+		}
+		
+		.MainPanel {
+			background-color: #ffffff;
 		}
 		
 		.Button {
@@ -15,7 +69,7 @@
 			overflow: hidden;
 			white-space: nowrap;
 			height: 18px;
-			margin-bottom: 5px;
+			margin-top: 5px;
 			background-color: #95B9DA;
 			padding-left: 10px;
 			padding-top: 2px;
@@ -31,11 +85,11 @@
 			background-color: #3D85C6;
 		}
 		
-		.Child {
+		.Directory {
 			overflow: hidden;
 			white-space: nowrap;
 			height: 18px;
-			margin-bottom: 5px;
+			margin-top: 5px;
 			margin-right: 5px;
 			background-color: #DADADA;
 			padding-left: 10px;
@@ -43,7 +97,7 @@
 			cursor: pointer;
 		}
 		
-		.Child a,.Child a:visited,.Child a:hover {
+		.Directory a,.Directory a:visited,.Directory a:hover {
 			color: #000000;
 			text-decoration: none;
 		}
@@ -52,7 +106,7 @@
 			overflow: hidden;
 			white-space: nowrap;
 			height: 18px;
-			margin-bottom: 5px;
+			margin-top: 5px;
 			margin-right: 5px;
 			background-color: #EBEBEB;
 			padding-left: 10px;
@@ -64,60 +118,43 @@
 			color: #000000;
 			text-decoration: none;
 		}
-		
-		.RootPanel {
-			background-color: #3D85C6;
-		}
-		
-		.MainPanel {
-			background-color: #ffffff;
-		}
 	</ui:style>
 
-	<g:DockLayoutPanel unit='PX'>
-		<g:north size='100'>
+	<g:HTMLPanel>
+		<div class="{style.TitlePanel}">
 			<g:Label>Task Repository for Informatics and Coding Competitions</g:Label>
-		</g:north>
-		<g:west size='250'>
-			<g:LayoutPanel>
-				<g:layer left='0px' right='0px' top='0px' bottom='29px'>
-					<g:FlowPanel>
-						<g:FlowPanel ui:field="parentsPanel">
-							<g:Hyperlink addStyleNames="{style.Parent} {style.LastParent}"
-								text="Home Page" targetHistoryToken="/"></g:Hyperlink>
-						</g:FlowPanel>
-						<g:FlowPanel ui:field="childrenPanel">
+		</div>
 
-						</g:FlowPanel>
-						<g:FlowPanel ui:field="tasksPanel">
+		<div class="{style.NavigationPanel}">
+			<div class="{style.NavigationPanelFloat}" style="position:absolute;"
+				ui:field="navigationPanel">
+				<g:FlowPanel ui:field="parentsPanel">
+					<g:Hyperlink addStyleNames="{style.Parent} {style.LastParent}"
+						text="Home Page" targetHistoryToken="/"></g:Hyperlink>
+				</g:FlowPanel>
+				<g:FlowPanel ui:field="childrenPanel">
+				</g:FlowPanel>
+				<g:FlowPanel ui:field="tasksPanel">
+				</g:FlowPanel>
+			</div>
+		</div>
 
-						</g:FlowPanel>
-					</g:FlowPanel>
-				</g:layer>
+		<div class="{style.ButtonPanel}">
+			<div class="{style.LeftButton}">
+				<g:Button width="110px" addStyleNames="{style.Button}"
+					ui:field="addDirectoryButton" text="Add Directory" />
+			</div>
+			<div class="{style.RightButton}">
+				<g:Button width="110px" addStyleNames="{style.Button}"
+					ui:field="addTaskButton" text="Add Task" />
+			</div>
 
-				<g:layer left='0px' right='0px' bottom='0px' height='29px'>
-					<g:LayoutPanel addStyleNames="{style.BottomBar}">
-						<g:layer left='10px' right='130px' bottom='3px' top='4px'>
-							<g:Button width="110px" addStyleNames="{style.Button}"
-								ui:field="addDirectoryButton" text="Add Directory" />
-						</g:layer>
-						<g:layer left='130px' right='10px' bottom='3px' top='4px'>
-							<g:Button width="110px" addStyleNames="{style.Button}"
-								ui:field="addTaskButton" text="Add Task" />
-						</g:layer>
-					</g:LayoutPanel>
-				</g:layer>
-			</g:LayoutPanel>
-		</g:west>
-		<g:center>
-			<g:LayoutPanel addStyleNames="{style.RootPanel}" ui:field="mainPanel">
-<!-- 				<g:layer left='5px' right='5px' bottom='5px' top='5px'>
-					<g:SimplePanel addStyleNames="{style.MainPanel}"
-						 />
-				</g:layer> -->
-			</g:LayoutPanel>
-		</g:center>
-	</g:DockLayoutPanel>
+		</div>
 
-
+		<div class="{style.RootPanel}" style="min-height: 180px;"
+			ui:field="rootPanel">
+			<g:FlowPanel addStyleNames="{style.MainPanel}" ui:field="mainPanel">
+			</g:FlowPanel>
+		</div>
+	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -1,5 +1,7 @@
 package treicco.client;
 
+import java.util.Date;
+
 import treicco.shared.DirectoryProxy;
 
 import com.google.gwt.editor.client.Editor;
@@ -18,9 +20,9 @@ public interface DirectoryView extends IsWidget, Editor<DirectoryProxy> {
 
 	LeafValueEditor<String> fullName();
 
-	// LeafValueEditor<Date> startDate();
+	LeafValueEditor<Date> startDate();
 
-	// LeafValueEditor<Date> endDate();
+	LeafValueEditor<Date> endDate();
 
 	LeafValueEditor<String> location();
 

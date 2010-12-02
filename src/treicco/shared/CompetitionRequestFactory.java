@@ -8,4 +8,5 @@ public interface CompetitionRequestFactory extends RequestFactory {
 
 	TaskRequest taskRequest();
 
+	ImageRequest imageRequest();
 }

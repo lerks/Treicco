@@ -58,7 +58,7 @@
 			</g:HTMLPanel>
 		</g:layer>
 		<g:layer top="66px" height="1000px" left="20px" right="240px">
-			<g:FlowPanel>
+			<g:FlowPanel ui:field="values">
 				<g:Label>Short Name: </g:Label>
 				<e:ValueBoxEditorDecorator ui:field="shortName">
 					<e:valuebox>

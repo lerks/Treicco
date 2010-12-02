@@ -24,4 +24,6 @@ public interface ClientFactory {
 	DirectoryView getDirectoryEdit();
 
 	TaskView getTaskView();
+
+	TaskView getTaskEdit();
 }

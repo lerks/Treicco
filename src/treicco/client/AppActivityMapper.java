@@ -17,6 +17,6 @@ public class AppActivityMapper implements ActivityMapper {
 		if (place instanceof DirectoryPlace)
 			return new DirectoryActivity((DirectoryPlace) place, clientFactory);
 		else
-			return new TaskActivity();
+			return new TaskActivity((TaskPlace) place, clientFactory);
 	}
 }

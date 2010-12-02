@@ -1,0 +1,158 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.WhiteBackground {
+			background-color: #FFFFFF;
+		}
+		
+		.Title {
+			font-size: 120%;
+			padding: 3px 5px;
+			left: 10px !important;
+			top: 4px !important;
+			right: 10px !important;
+			bottom: 4px !important;
+			background-color: #95B9DA;
+		}
+		
+		.EditorPanel {
+			position: absolute;
+			top: 5px !important;
+			bottom: 5px !important;
+			left: 10px !important;
+			right: 10px !important;
+			border: 1px solid #000000;
+			padding: 2px;
+		}
+		
+		.Editor {
+			padding: 0px !important;
+			margin: 0px !important;
+			border-width: 0px !important;
+			width: 100%;
+			height: 100%;
+		}
+	</ui:style>
+	<g:DockLayoutPanel unit="PX" addStyleNames="{style.WhiteBackground}">
+		<g:north size="32">
+			<g:DockLayoutPanel unit="PCT">
+				<g:west size="50">
+					<g:HTMLPanel>
+						Short name:
+						<g:TextBox ui:field="shortName"></g:TextBox>
+					</g:HTMLPanel>
+				</g:west>
+				<g:east size="50">
+					<g:HTMLPanel>
+						Full name:
+						<g:TextBox ui:field="fullName"></g:TextBox>
+					</g:HTMLPanel>
+				</g:east>
+			</g:DockLayoutPanel>
+		</g:north>
+		<g:north size="32">
+			<g:DockLayoutPanel unit="PCT">
+				<g:west size="50">
+					<g:HTMLPanel>
+						Time limit:
+						<g:TextBox ui:field="timelimit"></g:TextBox>
+					</g:HTMLPanel>
+				</g:west>
+				<g:east size="50">
+					<g:HTMLPanel>
+						Memory limit:
+						<g:TextBox ui:field="memorylimit"></g:TextBox>
+					</g:HTMLPanel>
+				</g:east>
+			</g:DockLayoutPanel>
+		</g:north>
+		<g:north size="32">
+			<g:DockLayoutPanel unit="PCT">
+				<g:west size="50">
+					<g:HTMLPanel>
+						Author:
+						<g:TextBox ui:field="author"></g:TextBox>
+					</g:HTMLPanel>
+				</g:west>
+				<g:east size="50">
+					<g:HTMLPanel>
+						Difficulty:
+						<g:TextBox ui:field="difficulty"></g:TextBox>
+					</g:HTMLPanel>
+				</g:east>
+			</g:DockLayoutPanel>
+		</g:north>
+		<g:north size="32">
+			<g:Label addStyleNames="{style.Title}">TESTO</g:Label>
+		</g:north>
+		<g:north size="120">
+			<g:FlowPanel addStyleNames="{style.EditorPanel}">
+				<g:TextArea addStyleNames="{style.Editor}" ui:field="description"></g:TextArea>
+			</g:FlowPanel>
+		</g:north>
+		<g:north size="32">
+			<g:Label addStyleNames="{style.Title}">IMMAGINI</g:Label>
+		</g:north>
+		<g:north size="120">
+			<g:Label>Selector</g:Label>
+		</g:north>
+		<g:north size="32">
+			<g:FormPanel ui:field="image_form">
+				<g:HTMLPanel>
+				Name:
+				<g:TextBox name="name"></g:TextBox>
+				File:
+				<g:FileUpload name="file"></g:FileUpload>
+				<g:TextBox name="parent"></g:TextBox>
+				<g:Button text="Commit" ui:field="image_submit"/>
+				</g:HTMLPanel>
+			</g:FormPanel>
+		</g:north>
+		<g:north size="32">
+			<g:Label addStyleNames="{style.Title}">INPUT/OUTPUT</g:Label>
+		</g:north>
+		<g:north size="120">
+			<g:DockLayoutPanel unit="PCT">
+				<g:west size="50">
+					<g:FlowPanel addStyleNames="{style.EditorPanel}">
+						<g:TextArea addStyleNames="{style.Editor}" ui:field="input">Editor</g:TextArea>
+					</g:FlowPanel>
+				</g:west>
+				<g:east size="50">
+					<g:FlowPanel addStyleNames="{style.EditorPanel}">
+						<g:TextArea addStyleNames="{style.Editor}" ui:field="output">Editor</g:TextArea>
+					</g:FlowPanel>
+				</g:east>
+			</g:DockLayoutPanel>
+		</g:north>
+		<g:north size="32">
+			<g:Label addStyleNames="{style.Title}">ASSUNZIONI</g:Label>
+		</g:north>
+		<g:north size="120">
+			<g:FlowPanel addStyleNames="{style.EditorPanel}">
+				<g:TextArea addStyleNames="{style.Editor}" ui:field="constraints"></g:TextArea>
+			</g:FlowPanel>
+		</g:north>
+		<g:north size="32">
+			<g:Label addStyleNames="{style.Title}">ESEMPI</g:Label>
+		</g:north>
+		<g:north size="120">
+			<g:Label>Editors</g:Label>
+		</g:north>
+		<g:north size="32">
+			<g:Label addStyleNames="{style.Title}">NOTE</g:Label>
+		</g:north>
+		<g:north size="120">
+			<g:FlowPanel addStyleNames="{style.EditorPanel}">
+				<g:TextArea addStyleNames="{style.Editor}" ui:field="notes"></g:TextArea>
+			</g:FlowPanel>
+		</g:north>
+		<g:north size="32">
+			<g:FlowPanel>
+				<g:Button ui:field="commit" text="Commit" />
+				<g:Button ui:field="cancel" text="Cancel" />
+			</g:FlowPanel>
+		</g:north>
+	</g:DockLayoutPanel>
+</ui:UiBinder>

@@ -38,14 +38,23 @@
 	<!-- Servlets -->
 
 	<servlet>
-		<servlet-name>requestFactoryServlet</servlet-name>
+		<servlet-name>RequestFactoryServlet</servlet-name>
 		<servlet-class>com.google.gwt.requestfactory.server.RequestFactoryServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>requestFactoryServlet</servlet-name>
+		<servlet-name>RequestFactoryServlet</servlet-name>
 		<url-pattern>/gwtRequest</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>FileStore</servlet-name>
+		<servlet-class>treicco.server.FileStore</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FileStore</servlet-name>
+		<url-pattern>/filestore</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

@@ -1,5 +1,6 @@
 package treicco.server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -8,7 +9,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.google.appengine.api.datastore.Text;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -35,7 +35,23 @@ public class Task {
 	@Size(min = 3)
 	private String fullName;
 
-	private Text description;
+	private String author;
+
+	private String timelimit;
+
+	private String memorylimit;
+
+	private String difficulty;
+
+	private String description;
+
+	private String input;
+
+	private String output;
+
+	private String constraints;
+
+	private String notes;
 
 	static {
 		ObjectifyService.register(Task.class);
@@ -49,6 +65,7 @@ public class Task {
 	}
 
 	// Needed by RequestFactory
+	// TODO: return an actual version of the entity
 	public Integer getVersion() {
 		return new Integer(1);
 	}
@@ -82,22 +99,110 @@ public class Task {
 		return fullName;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getTimelimit() {
+		return timelimit;
+	}
+
+	public void setTimelimit(String timelimit) {
+		this.timelimit = timelimit;
+	}
+
+	public String getMemorylimit() {
+		return memorylimit;
+	}
+
+	public void setMemorylimit(String memorylimit) {
+		this.memorylimit = memorylimit;
+	}
+
+	public String getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+
 	public String getDescription() {
-		return description.getValue();
+		return description;
 	}
 
 	public void setDescription(String description) {
-		this.description = new Text(description);
+		this.description = description;
 	}
 
-	public static Task findTask(String parent, String codeName) {
-		log.info("Requested Task " + codeName + " in " + parent);
+	public List<Image> getImages() {
+		List<Image> l =Image.listImages(id);;
+		log.severe(""+l.size());
+		return l;
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
+	}
+
+//	public List<Example> getExamples() {
+//		return examples;
+//	}
+//
+//	public void setExamples(List<Example> examples) {
+//		this.examples = examples;
+//	}
+
+	public String getConstraints() {
+		return constraints;
+	}
+
+	public void setConstraints(String constraints) {
+		this.constraints = constraints;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public static Task findTask(String id) {
+		log.info("Requested Task " + id);
 
 		Objectify o = ObjectifyService.begin();
 
-		Task t = o.get(Task.class, parent + codeName);
+		Task t = o.get(Task.class, id);
 
 		return t;
+	}
+
+	public static List<Task> findAllTasks(List<String> ids) {
+		List<Task> l = new ArrayList<Task>();
+
+		for (String id : ids) {
+			l.add(findTask(id));
+		}
+
+		return l;
 	}
 
 	public static List<Task> listTasks(String parent) {
@@ -106,6 +211,16 @@ public class Task {
 		Objectify o = ObjectifyService.begin();
 
 		List<Task> l = o.query(Task.class).filter("parent", parent).order("codeName").list();
+
+		return l;
+	}
+
+	public static List<List<Task>> listAllTasks(List<String> parents) {
+		List<List<Task>> l = new ArrayList<List<Task>>();
+
+		for (String parent : parents) {
+			l.add(listTasks(parent));
+		}
 
 		return l;
 	}

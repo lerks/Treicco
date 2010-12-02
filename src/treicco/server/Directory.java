@@ -57,6 +57,7 @@ public class Directory {
 	}
 
 	// Needed by RequestFactory
+	// TODO: return an actual version of the entity
 	public Integer getVersion() {
 		return new Integer(1);
 	}

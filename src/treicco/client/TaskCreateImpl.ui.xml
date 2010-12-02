@@ -25,21 +25,37 @@
 		.InputWidth {
 			width: 240px;
 		}
+		
+		.TextWidth {
+			width: 250px;
+			font-size: 85%;
+		}
 	</ui:style>
 	<g:DialogBox animationEnabled="true" glassEnabled="true"
 		autoHide="false" modal="true">
 		<g:caption>
-			<b>Add Directory</b>
+			<b>Add Task</b>
 		</g:caption>
 		<g:FlowPanel addStyleNames="{style.MainPanel}">
 			<g:FlowPanel>
 				<g:Label>Code Name</g:Label>
-				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="codename"></g:TextBox>
-				<g:Label addStyleNames="{style.LargeSpacing}">Full Name</g:Label>
-				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}" ui:field="fullname"></g:TextBox>
+				<g:TextBox addStyleNames="{style.InputWidth} {style.SmallSpacing}"
+					ui:field="codename"></g:TextBox>
+				<g:Label addStyleNames="{style.LargeSpacing} {style.TextWidth}">
+					The code name must be at least 3
+					characters long and you are allowed to use only upper- and
+					lowercase letters, numbers and underscores.
+					You won't be able to
+					change the code name later, but you'll be able to set another name
+					to be displayed instead.
+					The order of child directories and child
+					tasks is determined by the lexicographic order of their code names,
+					so choose it wisely.
+				</g:Label>
 			</g:FlowPanel>
 			<g:FlowPanel addStyleNames="{style.LargeSpacing}">
-				<g:Button addStyleNames="{style.ButtonWidth} {style.RightFloat}" ui:field="okButton">Okay</g:Button>
+				<g:Button addStyleNames="{style.ButtonWidth} {style.RightFloat}"
+					ui:field="okButton">Okay</g:Button>
 				<g:Button addStyleNames="{style.ButtonWidth}" ui:field="cancelButton">Cancel</g:Button>
 			</g:FlowPanel>
 		</g:FlowPanel>

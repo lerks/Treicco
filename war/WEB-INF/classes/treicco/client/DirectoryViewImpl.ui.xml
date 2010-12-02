@@ -2,10 +2,6 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		.WhiteBackground {
-			background-color: #FFFFFF;
-		}
-		
 		.Title {
 			font-size: 200%;
 		}
@@ -28,30 +24,24 @@
 			cursor: pointer;
 		}
 	</ui:style>
-	<g:LayoutPanel addStyleNames="{style.WhiteBackground}">
-		<g:layer top="20px" height="32px" left="20px" right="240px">
-			<g:Label addStyleNames="{style.Title}" ui:field="fullName">Full Name</g:Label>
-		</g:layer>
-		<g:layer top="20px" bottom="20px" width="200px" right="20px">
-			<g:Image url="http://code.google.com/webtoolkit/logo-185x175.png"></g:Image>
-		</g:layer>
-		<g:layer top="55px" height="2px" left="20px" right="240px">
-			<g:HTMLPanel>
-				<hr class="{style.TitleUnderline}"></hr>
-			</g:HTMLPanel>
-		</g:layer>
-		<g:layer top="66px" bottom="0px" left="20px" right="240px">
-			<g:FlowPanel>
-				<g:Label>Date: </g:Label>
-				<g:Label ui:field="date"></g:Label>
-				<g:Label>Location: </g:Label>
-				<g:Label ui:field="location"></g:Label>
-				<g:Label>Website: </g:Label>
-				<g:Label ui:field="website"></g:Label>
-			</g:FlowPanel>
-		</g:layer>
-		<g:layer height="16px" bottom="10px" width="200px" right="20px">
+	<g:HTMLPanel>
+		<div style="position:relative; height:32px; padding: 20px;">
+			<g:Label addStyleNames="{style.Title}" ui:field="fullName"></g:Label>
+		</div>
+		<div style="position:relative; height:4px; padding:0px 20px;">
+			<hr class="{style.TitleUnderline}"></hr>
+		</div>
+		<div style="position:relative; height:120px;">
+			<g:Label>Date: </g:Label>
+			<g:Label ui:field="date"></g:Label>
+			<g:Label>Location: </g:Label>
+			<g:Label ui:field="location"></g:Label>
+			<g:Label>Website: </g:Label>
+			<g:Label ui:field="website"></g:Label>
+		</div>
+		<div style="position:relative; height:120px;">
 			<g:Anchor addStyleNames="{style.Update}" ui:field="edit">Edit</g:Anchor>
-		</g:layer>
-	</g:LayoutPanel>
+		</div>
+		<g:Image url="http://code.google.com/webtoolkit/logo-185x175.png"></g:Image>
+	</g:HTMLPanel>
 </ui:UiBinder> 

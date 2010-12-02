@@ -90,4 +90,8 @@ public class MainActivity extends AbstractActivity implements MainPresenter, Pla
 		dir.init(place);
 	}
 
+	public void addTask() {
+		TaskCreateImpl task = new TaskCreateImpl(clientFactory);
+		task.init(place);
+	}
 }

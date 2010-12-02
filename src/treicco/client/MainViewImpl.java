@@ -6,18 +6,23 @@ import treicco.shared.DirectoryProxy;
 import treicco.shared.TaskProxy;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.ScrollEvent;
+import com.google.gwt.user.client.Window.ScrollHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MainViewImpl extends Composite implements MainView {
@@ -36,6 +41,9 @@ public class MainViewImpl extends Composite implements MainView {
 	Button addTaskButton;
 
 	@UiField
+	DivElement navigationPanel;
+
+	@UiField
 	FlowPanel parentsPanel;
 
 	@UiField
@@ -45,14 +53,19 @@ public class MainViewImpl extends Composite implements MainView {
 	FlowPanel tasksPanel;
 
 	@UiField
-	LayoutPanel mainPanel;
+	DivElement rootPanel;
+
+	@UiField
+	Panel mainPanel;
+
+	int scroll = 0;
 
 	interface DirectoryStyle extends CssResource {
 		String Parent();
 
 		String LastParent();
 
-		String Child();
+		String Directory();
 
 		String Task();
 	}
@@ -62,6 +75,24 @@ public class MainViewImpl extends Composite implements MainView {
 
 	public MainViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
+
+		rootPanel.setAttribute("style", "min-height: " + (Window.getClientHeight() - 110) + "px;");
+		Window.addResizeHandler(new ResizeHandler() {
+			public void onResize(ResizeEvent event) {
+				rootPanel.setAttribute("style", "min-height: " + (event.getHeight() - 110) + "px;");
+			}
+		});
+
+		Window.addWindowScrollHandler(new ScrollHandler() {
+			public void onWindowScroll(ScrollEvent event) {
+				if (event.getScrollTop() > 100 && scroll <= 100) {
+					navigationPanel.setAttribute("style", "position:fixed;");
+				} else if (event.getScrollTop() < 100 && scroll >= 100) {
+					navigationPanel.setAttribute("style", "position:absolute;");
+				}
+				scroll = event.getScrollTop();
+			}
+		});
 	}
 
 	public void setPresenter(MainPresenter presenter) {
@@ -98,8 +129,8 @@ public class MainViewImpl extends Composite implements MainView {
 	public void setDirectories(List<DirectoryProxy> directories) {
 		clearDirectories();
 		for (DirectoryProxy d : directories) {
-			Hyperlink h = new Hyperlink(d.getShortName(), d.getParent() + d.getCodeName() + "/");
-			h.addStyleName(style.Child());
+			Hyperlink h = new Hyperlink(d.getShortName(), d.getId());
+			h.addStyleName(style.Directory());
 			childrenPanel.add(h);
 		}
 	}
@@ -111,7 +142,7 @@ public class MainViewImpl extends Composite implements MainView {
 	public void setTasks(List<TaskProxy> tasks) {
 		clearTasks();
 		for (TaskProxy t : tasks) {
-			Hyperlink h = new Hyperlink(t.getShortName(), t.getParent() + t.getCodeName());
+			Hyperlink h = new Hyperlink(t.getShortName(), t.getId());
 			h.addStyleName(style.Task());
 			tasksPanel.add(h);
 		}
@@ -125,13 +156,16 @@ public class MainViewImpl extends Composite implements MainView {
 		mainPanel.clear();
 		if (w != null) {
 			mainPanel.add(w.asWidget());
-			mainPanel.setWidgetLeftRight(w.asWidget(), 5, Unit.PX, 5, Unit.PX);
-			mainPanel.setWidgetTopBottom(w.asWidget(), 5, Unit.PX, 5, Unit.PX);
 		}
 	}
 
 	@UiHandler("addDirectoryButton")
 	void addDirectoryClick(ClickEvent e) {
 		presenter.addDirectory();
+	}
+
+	@UiHandler("addTaskButton")
+	void addTaskClick(ClickEvent e) {
+		presenter.addTask();
 	}
 }
