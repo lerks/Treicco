@@ -2,20 +2,18 @@ package treicco.client;
 
 import java.util.List;
 
+import treicco.client.ui.widgets.ImageList;
+import treicco.client.ui.widgets.TextBox;
 import treicco.shared.ImageProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.requestfactory.shared.Receiver;
-import com.google.gwt.requestfactory.shared.Request;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class TaskEditImpl extends Composite implements TaskView {
@@ -27,9 +25,6 @@ public class TaskEditImpl extends Composite implements TaskView {
 
 	TaskPresenter presenter;
 
-	// FIXME remove this form the View
-	ClientFactory clientFactory;
-
 	@UiField
 	TextBox shortName;
 
@@ -37,10 +32,10 @@ public class TaskEditImpl extends Composite implements TaskView {
 	TextBox fullName;
 
 	@UiField
-	TextBox timelimit;
+	TextBox timeLimit;
 
 	@UiField
-	TextBox memorylimit;
+	TextBox memoryLimit;
 
 	@UiField
 	TextBox author;
@@ -52,7 +47,7 @@ public class TaskEditImpl extends Composite implements TaskView {
 	TextArea description;
 
 	@UiField
-	FormPanel image_form;
+	ImageList images;
 
 	@UiField
 	TextArea input;
@@ -66,46 +61,36 @@ public class TaskEditImpl extends Composite implements TaskView {
 	@UiField
 	TextArea notes;
 
-	public TaskEditImpl(ClientFactory clientFactory) {
+	public TaskEditImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
-
-		this.clientFactory = clientFactory;
 	}
 
 	public void setPresenter(TaskPresenter presenter) {
 		this.presenter = presenter;
 
-		Request<String> r = clientFactory.getRequestFactory().imageRequest().createUploadURL();
-
-		r.to(new Receiver<String>() {
-			@Override
-			public void onSuccess(String response) {
-				image_form.setAction(response);
-				image_form.setEncoding(FormPanel.ENCODING_MULTIPART);
-				image_form.setMethod(FormPanel.METHOD_POST);
-			}
-		}).fire();
-
-		image_form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
-			public void onSubmitComplete(FormPanel.SubmitCompleteEvent event) {
-				clientFactory.getLogger().severe(event.getResults());
-			}
-		});
+		if (images != null) {
+			images.setPresenter(presenter);
+		}
 	}
 
-	@UiHandler("commit")
-	public void commitChanges(ClickEvent e) {
+	@UiHandler("commit_top")
+	public void commitChangesTop(ClickEvent e) {
 		presenter.commitEdit();
 	}
 
-	@UiHandler("cancel")
-	public void cancelChanges(ClickEvent e) {
+	@UiHandler("commit_bottom")
+	public void commitChangesBottom(ClickEvent e) {
+		presenter.commitEdit();
+	}
+
+	@UiHandler("cancel_top")
+	public void cancelChangesTop(ClickEvent e) {
 		presenter.stopEdit();
 	}
 
-	@UiHandler("image_submit")
-	public void submitImage(ClickEvent e) {
-		image_form.submit();
+	@UiHandler("cancel_bottom")
+	public void cancelChangesBottom(ClickEvent e) {
+		presenter.stopEdit();
 	}
 
 	public LeafValueEditor<String> shortName() {
@@ -120,12 +105,12 @@ public class TaskEditImpl extends Composite implements TaskView {
 		return author.asEditor();
 	}
 
-	public LeafValueEditor<String> timelimit() {
-		return timelimit.asEditor();
+	public LeafValueEditor<String> timeLimit() {
+		return timeLimit.asEditor();
 	}
 
-	public LeafValueEditor<String> memorylimit() {
-		return memorylimit.asEditor();
+	public LeafValueEditor<String> memoryLimit() {
+		return memoryLimit.asEditor();
 	}
 
 	public LeafValueEditor<String> difficulty() {
@@ -137,8 +122,7 @@ public class TaskEditImpl extends Composite implements TaskView {
 	}
 
 	public LeafValueEditor<List<ImageProxy>> images() {
-		// TODO Auto-generated method stub
-		return null;
+		return images;
 	}
 
 	public LeafValueEditor<String> input() {

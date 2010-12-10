@@ -23,22 +23,22 @@ public class DirectoryViewImpl extends Composite implements DirectoryView {
 
 	@UiField
 	Label fullName;
-	
-//	@UiField
-//	Label date;
+
+	// @UiField
+	// Label date;
 
 	@UiField
 	Label location;
 
 	@UiField
 	Label website;
-	
+
 	DateIntervalWidget interval = new DateIntervalWidget();
 
 	public DirectoryViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
-//		values.add(interval);
+
+		// values.add(interval);
 	}
 
 	public void setPresenter(DirectoryPresenter presenter) {

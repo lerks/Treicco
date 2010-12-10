@@ -1,158 +1,159 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:e="urn:import:com.google.gwt.editor.ui.client"
+	xmlns:t="urn:import:treicco.client.ui.widgets">
 	<ui:style>
-		.WhiteBackground {
-			background-color: #FFFFFF;
+		.Padded {
+			padding: 20px 20px 10px;
+			position: relative;
 		}
 		
-		.Title {
-			font-size: 120%;
-			padding: 3px 5px;
-			left: 10px !important;
-			top: 4px !important;
-			right: 10px !important;
-			bottom: 4px !important;
-			background-color: #95B9DA;
-		}
-		
-		.EditorPanel {
-			position: absolute;
-			top: 5px !important;
-			bottom: 5px !important;
-			left: 10px !important;
-			right: 10px !important;
-			border: 1px solid #000000;
-			padding: 2px;
-		}
-		
-		.Editor {
-			padding: 0px !important;
-			margin: 0px !important;
-			border-width: 0px !important;
+		.ButtonBar_PlaceHolder {
 			width: 100%;
+			height: 32px;
+		}
+		
+		.ButtonBar_Top {
+			position: absolute;
+			top: 0px;
+			height: 25px;
+			left: 0px;
+			right: 0px;
+			background-color: #E2E2E2;
+			padding-top: 3px;
+		}
+		
+		.ButtonBar_Bottom {
+			position: absolute;
+			height: 25px;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+			background-color: #E2E2E2;
+			padding-top: 3px;
+		}
+		
+		.TextBox {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			width: 70%;
+			padding: 0px 10px;
+		}
+		
+		.TextBoxInput {
+			border: 2px solid #cccccc;
+			width: 97%;
+		}
+		
+		.TextArea {
+			height: 120px;
+			margin: 24px 24px 14px;
+		}
+		
+		.TextAreaInput {
+			border: 2px solid #cccccc;
+			position: relative;
+			top: -4px;
 			height: 100%;
+			left: -4px;
+			width: 100%;
+		}
+		
+		.Label {
+			position: absolute;
+			top: 0px;
+			right: 70%;
+			bottom: 0px;
+			width: 120px;
+			padding: 4px 20px 4px 10px;
+			text-align: right;
 		}
 	</ui:style>
-	<g:DockLayoutPanel unit="PX" addStyleNames="{style.WhiteBackground}">
-		<g:north size="32">
-			<g:DockLayoutPanel unit="PCT">
-				<g:west size="50">
-					<g:HTMLPanel>
-						Short name:
-						<g:TextBox ui:field="shortName"></g:TextBox>
-					</g:HTMLPanel>
-				</g:west>
-				<g:east size="50">
-					<g:HTMLPanel>
-						Full name:
-						<g:TextBox ui:field="fullName"></g:TextBox>
-					</g:HTMLPanel>
-				</g:east>
-			</g:DockLayoutPanel>
-		</g:north>
-		<g:north size="32">
-			<g:DockLayoutPanel unit="PCT">
-				<g:west size="50">
-					<g:HTMLPanel>
-						Time limit:
-						<g:TextBox ui:field="timelimit"></g:TextBox>
-					</g:HTMLPanel>
-				</g:west>
-				<g:east size="50">
-					<g:HTMLPanel>
-						Memory limit:
-						<g:TextBox ui:field="memorylimit"></g:TextBox>
-					</g:HTMLPanel>
-				</g:east>
-			</g:DockLayoutPanel>
-		</g:north>
-		<g:north size="32">
-			<g:DockLayoutPanel unit="PCT">
-				<g:west size="50">
-					<g:HTMLPanel>
-						Author:
-						<g:TextBox ui:field="author"></g:TextBox>
-					</g:HTMLPanel>
-				</g:west>
-				<g:east size="50">
-					<g:HTMLPanel>
-						Difficulty:
-						<g:TextBox ui:field="difficulty"></g:TextBox>
-					</g:HTMLPanel>
-				</g:east>
-			</g:DockLayoutPanel>
-		</g:north>
-		<g:north size="32">
-			<g:Label addStyleNames="{style.Title}">TESTO</g:Label>
-		</g:north>
-		<g:north size="120">
-			<g:FlowPanel addStyleNames="{style.EditorPanel}">
-				<g:TextArea addStyleNames="{style.Editor}" ui:field="description"></g:TextArea>
-			</g:FlowPanel>
-		</g:north>
-		<g:north size="32">
-			<g:Label addStyleNames="{style.Title}">IMMAGINI</g:Label>
-		</g:north>
-		<g:north size="120">
-			<g:Label>Selector</g:Label>
-		</g:north>
-		<g:north size="32">
-			<g:FormPanel ui:field="image_form">
-				<g:HTMLPanel>
-				Name:
-				<g:TextBox name="name"></g:TextBox>
-				File:
-				<g:FileUpload name="file"></g:FileUpload>
-				<g:TextBox name="parent"></g:TextBox>
-				<g:Button text="Commit" ui:field="image_submit"/>
-				</g:HTMLPanel>
-			</g:FormPanel>
-		</g:north>
-		<g:north size="32">
-			<g:Label addStyleNames="{style.Title}">INPUT/OUTPUT</g:Label>
-		</g:north>
-		<g:north size="120">
-			<g:DockLayoutPanel unit="PCT">
-				<g:west size="50">
-					<g:FlowPanel addStyleNames="{style.EditorPanel}">
-						<g:TextArea addStyleNames="{style.Editor}" ui:field="input">Editor</g:TextArea>
-					</g:FlowPanel>
-				</g:west>
-				<g:east size="50">
-					<g:FlowPanel addStyleNames="{style.EditorPanel}">
-						<g:TextArea addStyleNames="{style.Editor}" ui:field="output">Editor</g:TextArea>
-					</g:FlowPanel>
-				</g:east>
-			</g:DockLayoutPanel>
-		</g:north>
-		<g:north size="32">
-			<g:Label addStyleNames="{style.Title}">ASSUNZIONI</g:Label>
-		</g:north>
-		<g:north size="120">
-			<g:FlowPanel addStyleNames="{style.EditorPanel}">
-				<g:TextArea addStyleNames="{style.Editor}" ui:field="constraints"></g:TextArea>
-			</g:FlowPanel>
-		</g:north>
-		<g:north size="32">
-			<g:Label addStyleNames="{style.Title}">ESEMPI</g:Label>
-		</g:north>
-		<g:north size="120">
-			<g:Label>Editors</g:Label>
-		</g:north>
-		<g:north size="32">
-			<g:Label addStyleNames="{style.Title}">NOTE</g:Label>
-		</g:north>
-		<g:north size="120">
-			<g:FlowPanel addStyleNames="{style.EditorPanel}">
-				<g:TextArea addStyleNames="{style.Editor}" ui:field="notes"></g:TextArea>
-			</g:FlowPanel>
-		</g:north>
-		<g:north size="32">
-			<g:FlowPanel>
-				<g:Button ui:field="commit" text="Commit" />
-				<g:Button ui:field="cancel" text="Cancel" />
-			</g:FlowPanel>
-		</g:north>
-	</g:DockLayoutPanel>
+	<g:HTMLPanel>
+		<div class="{style.ButtonBar_PlaceHolder}">
+			<div class="{style.ButtonBar_Top}">
+				<t:Button ui:field="commit_top" text="Commit" />
+				<t:Button ui:field="cancel_top" text="Cancel" />
+			</div>
+		</div>
+		<div class="{style.Padded}" style="height:23px;">
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<t:TextBox ui:field="shortName" label="Short name" />
+			</div>
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<t:TextBox ui:field="fullName" label="Full name" />
+			</div>
+		</div>
+		<div class="{style.Padded}" style="height:23px;">
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<t:TextBox ui:field="timeLimit" label="Time limit" />
+			</div>
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<t:TextBox ui:field="memoryLimit" label="Memory limit" />
+			</div>
+		</div>
+		<div class="{style.Padded}" style="height:23px;">
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<t:TextBox ui:field="author" label="Author" />
+			</div>
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<t:TextBox ui:field="difficulty" label="Difficulty" />
+			</div>
+		</div>
+		<div class="{style.Padded}">
+			Testo
+		</div>
+		<div class="{style.Padded} {style.TextArea}">
+			<g:TextArea addStyleNames="{style.TextAreaInput}"
+				ui:field="description"></g:TextArea>
+		</div>
+		<div class="{style.Padded}">
+			Immagini
+		</div>
+		<div class="{style.Padded}">
+			<t:ImageList ui:field="images" />
+		</div>
+		<div class="{style.Padded}">
+			Input/Output
+		</div>
+		<div class="{style.Padded} {style.TextArea}">
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<g:TextArea addStyleNames="{style.TextAreaInput}"
+					ui:field="input"></g:TextArea>
+			</div>
+			<div style="position:relative; float:left; width:50%; height:100%;">
+				<g:TextArea addStyleNames="{style.TextAreaInput}"
+					ui:field="output"></g:TextArea>
+			</div>
+		</div>
+		<div class="{style.Padded}">
+			Assunzioni
+		</div>
+		<div class="{style.Padded} {style.TextArea}">
+			<g:TextArea addStyleNames="{style.TextAreaInput}"
+				ui:field="constraints"></g:TextArea>
+		</div>
+		<div class="{style.Padded}">
+			Esempi
+		</div>
+		<div class="{style.Padded} {style.TextArea}">
+			<g:TextArea addStyleNames="{style.TextAreaInput}"
+				ui:field="examples"></g:TextArea>
+		</div>
+		<div class="{style.Padded}">
+			Note
+		</div>
+		<div class="{style.Padded} {style.TextArea}">
+			<g:TextArea addStyleNames="{style.TextAreaInput}"
+				ui:field="notes"></g:TextArea>
+		</div>
+		<div class="{style.ButtonBar_PlaceHolder}">
+			<div class="{style.ButtonBar_Bottom}">
+				<t:Button ui:field="commit_bottom" text="Commit" />
+				<t:Button ui:field="cancel_bottom" text="Cancel" />
+			</div>
+		</div>
+	</g:HTMLPanel>
 </ui:UiBinder>

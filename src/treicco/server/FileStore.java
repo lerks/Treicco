@@ -1,6 +1,7 @@
 package treicco.server;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -31,12 +32,19 @@ public class FileStore extends HttpServlet {
 			Image i = new Image();
 			i.create(parent, name, blobKey.getKeyString());
 
-			res.sendRedirect("/filestore?id=" + blobKey.getKeyString());
+			res.sendRedirect("/filestore?self=" + blobKey.getKeyString());
 		}
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		BlobKey blobKey = new BlobKey(req.getParameter("id"));
-		blobstoreService.serve(blobKey, res);
+		if (req.getParameter("id") != null) {
+			BlobKey blobKey = new BlobKey(req.getParameter("id"));
+			blobstoreService.serve(blobKey, res);
+		} else if (req.getParameter("self") != null) {
+			Image i = Image.findImage(req.getParameter("self"));
+			res.setContentType("text/html");
+			PrintWriter out = res.getWriter();
+		    out.print(i.getUrl()+" "+i.getName());
+		}
 	}
 }

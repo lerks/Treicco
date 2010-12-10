@@ -10,5 +10,5 @@ public interface ImageProxy extends EntityProxy {
 
 	public String getName();
 
-	public String getURL();
+	public String getUrl();
 }

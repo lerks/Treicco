@@ -96,7 +96,7 @@ public class DirectoryActivity extends AbstractActivity implements DirectoryPres
 
 			@Override
 			public void onViolation(Set<Violation> errors) {
-				clientFactory.getLogger().severe("Errors detected on the server");
+				clientFactory.getLogger().severe("Errors detected on the server: "+errors.iterator().next().getPath());
 				editorDriver.setViolations(errors);
 			}
 		});

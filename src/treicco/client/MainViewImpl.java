@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MainViewImpl extends Composite implements MainView {
@@ -53,14 +52,16 @@ public class MainViewImpl extends Composite implements MainView {
 	FlowPanel tasksPanel;
 
 	@UiField
-	DivElement rootPanel;
-
-	@UiField
-	Panel mainPanel;
+	FlowPanel mainPanel;
+	
+	Widget child;
 
 	int scroll = 0;
 
 	interface DirectoryStyle extends CssResource {
+
+		String Child();
+
 		String Parent();
 
 		String LastParent();
@@ -76,10 +77,14 @@ public class MainViewImpl extends Composite implements MainView {
 	public MainViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		rootPanel.setAttribute("style", "min-height: " + (Window.getClientHeight() - 110) + "px;");
+		mainPanel.getElement().getStyle().setPropertyPx("minHeight", Window.getClientHeight() - 110);
+
 		Window.addResizeHandler(new ResizeHandler() {
 			public void onResize(ResizeEvent event) {
-				rootPanel.setAttribute("style", "min-height: " + (event.getHeight() - 110) + "px;");
+				mainPanel.getElement().getStyle().setPropertyPx("minHeight", event.getHeight() - 110);
+				if (child != null) {
+					child.getElement().getStyle().setPropertyPx("minHeight", event.getHeight() - 110);
+				}
 			}
 		});
 
@@ -123,7 +128,6 @@ public class MainViewImpl extends Composite implements MainView {
 		parentsPanel.getWidget(parentsPanel.getWidgetCount() - 1).removeStyleName(style.LastParent());
 		parentsPanel.add(h);
 		parentsPanel.getWidget(parentsPanel.getWidgetCount() - 1).addStyleName(style.LastParent());
-
 	}
 
 	public void setDirectories(List<DirectoryProxy> directories) {
@@ -155,7 +159,14 @@ public class MainViewImpl extends Composite implements MainView {
 	public void setWidget(IsWidget w) {
 		mainPanel.clear();
 		if (w != null) {
-			mainPanel.add(w.asWidget());
+			child = w.asWidget();
+			mainPanel.add(child);
+			child.addStyleName(style.Child());
+			child.getElement().getStyle().setPropertyPx("minHeight", Window.getClientHeight() - 110);
+		}
+		else
+		{
+			child = null;
 		}
 	}
 

@@ -59,8 +59,7 @@ public class TaskActivity extends AbstractActivity implements TaskPresenter {
 		Request<TaskProxy> fetchRequest = clientFactory.getRequestFactory().taskRequest().findTask(place.getId());
 
 		fetchRequest.with(editorDriver.getPaths());
-		fetchRequest.with("images");
-		clientFactory.getLogger().warning(String.valueOf(editorDriver.getPaths().length));
+		clientFactory.getLogger().warning(String.valueOf(editorDriver.getPaths()[0]));
 
 		fetchRequest.to(new Receiver<TaskProxy>() {
 			@Override
@@ -99,5 +98,15 @@ public class TaskActivity extends AbstractActivity implements TaskPresenter {
 				editorDriver.setViolations(errors);
 			}
 		});
+	}
+
+	public TaskPlace getPlace() {
+		return place;
+	}
+
+	public void requestImageUploadUrl(Receiver<String> receiver) {
+		Request<String> r = clientFactory.getRequestFactory().imageRequest().createUploadURL();
+
+		r.to(receiver).fire();
 	}
 }

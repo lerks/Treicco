@@ -2,18 +2,17 @@ package treicco.client;
 
 import java.util.Date;
 
+import treicco.client.ui.widgets.TextBox;
 import treicco.shared.DirectoryProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.LeafValueEditor;
-import com.google.gwt.editor.ui.client.ValueBoxEditorDecorator;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
@@ -27,42 +26,49 @@ public class DirectoryEditImpl extends Composite implements Editor<DirectoryProx
 	DirectoryPresenter presenter;
 
 	@UiField
-	FlowPanel values;
+	TextBox shortName;
 
 	@UiField
-	ValueBoxEditorDecorator<String> shortName;
+	TextBox fullName;
 
 	@UiField
-	ValueBoxEditorDecorator<String> fullName;
+	TextBox location;
 
 	@UiField
-	ValueBoxEditorDecorator<String> location;
+	TextBox website;
 
-	@UiField
-	ValueBoxEditorDecorator<String> website;
-	
 	DatePicker startDate = new DatePicker();
 
 	DatePicker endDate = new DatePicker();
 
 	public DirectoryEditImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		values.add(startDate);
-		values.add(endDate);
+
+		// values.add(startDate);
+		// values.add(endDate);
 	}
 
 	public void setPresenter(DirectoryPresenter presenter) {
 		this.presenter = presenter;
 	}
 
-	@UiHandler("commit")
-	public void commitChanges(ClickEvent e) {
+	@UiHandler("commit_top")
+	public void commitChangesTop(ClickEvent e) {
 		presenter.commitEdit();
 	}
 
-	@UiHandler("cancel")
-	public void cancelChanges(ClickEvent e) {
+	@UiHandler("commit_bottom")
+	public void commitChangesBottom(ClickEvent e) {
+		presenter.commitEdit();
+	}
+
+	@UiHandler("cancel_top")
+	public void cancelChangesTop(ClickEvent e) {
+		presenter.stopEdit();
+	}
+
+	@UiHandler("cancel_bottom")
+	public void cancelChangesBottom(ClickEvent e) {
 		presenter.stopEdit();
 	}
 

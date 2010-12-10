@@ -28,13 +28,13 @@ public interface TaskProxy extends EntityProxy {
 
 	public void setAuthor(String author);
 
-	public String getTimelimit();
+	public String getTimeLimit();
 
-	public void setTimelimit(String timelimit);
+	public void setTimeLimit(String timelimit);
 
-	public String getMemorylimit();
+	public String getMemoryLimit();
 
-	public void setMemorylimit(String memorylimit);
+	public void setMemoryLimit(String memorylimit);
 
 	public String getDifficulty();
 

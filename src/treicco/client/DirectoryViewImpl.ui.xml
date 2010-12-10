@@ -25,13 +25,13 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-		<div style="position:relative; height:32px; padding: 20px;">
+		<div style="position:relative; height:32px; padding: 20px 20px 4px;">
 			<g:Label addStyleNames="{style.Title}" ui:field="fullName"></g:Label>
 		</div>
-		<div style="position:relative; height:4px; padding:0px 20px;">
+		<div style="position:relative; height:2px; padding: 4px 20px;">
 			<hr class="{style.TitleUnderline}"></hr>
 		</div>
-		<div style="position:relative; height:120px;">
+		<div style="position:relative; padding: 6px 20px;">
 			<g:Label>Date: </g:Label>
 			<g:Label ui:field="date"></g:Label>
 			<g:Label>Location: </g:Label>
@@ -39,9 +39,9 @@
 			<g:Label>Website: </g:Label>
 			<g:Label ui:field="website"></g:Label>
 		</div>
-		<div style="position:relative; height:120px;">
+		<div
+			style="position:absolute; top:10px; right:10px; height:20px; width:100px;">
 			<g:Anchor addStyleNames="{style.Update}" ui:field="edit">Edit</g:Anchor>
 		</div>
-		<g:Image url="http://code.google.com/webtoolkit/logo-185x175.png"></g:Image>
 	</g:HTMLPanel>
 </ui:UiBinder> 

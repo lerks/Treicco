@@ -52,7 +52,7 @@ public class Image {
 		return name;
 	}
 
-	public String getURL() {
+	public String getUrl() {
 		return "/filestore?id=" + id;
 	}
 

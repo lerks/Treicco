@@ -37,9 +37,9 @@ public class Task {
 
 	private String author;
 
-	private String timelimit;
+	private String timeLimit;
 
-	private String memorylimit;
+	private String memoryLimit;
 
 	private String difficulty;
 
@@ -107,20 +107,20 @@ public class Task {
 		this.author = author;
 	}
 
-	public String getTimelimit() {
-		return timelimit;
+	public String getTimeLimit() {
+		return timeLimit;
 	}
 
-	public void setTimelimit(String timelimit) {
-		this.timelimit = timelimit;
+	public void setTimeLimit(String timeLimit) {
+		this.timeLimit = timeLimit;
 	}
 
-	public String getMemorylimit() {
-		return memorylimit;
+	public String getMemoryLimit() {
+		return memoryLimit;
 	}
 
-	public void setMemorylimit(String memorylimit) {
-		this.memorylimit = memorylimit;
+	public void setMemoryLimit(String memoryLimit) {
+		this.memoryLimit = memoryLimit;
 	}
 
 	public String getDifficulty() {
@@ -140,8 +140,9 @@ public class Task {
 	}
 
 	public List<Image> getImages() {
-		List<Image> l =Image.listImages(id);;
-		log.severe(""+l.size());
+		List<Image> l = Image.listImages(id);
+		;
+		log.severe("" + l.size());
 		return l;
 	}
 
@@ -161,13 +162,13 @@ public class Task {
 		this.output = output;
 	}
 
-//	public List<Example> getExamples() {
-//		return examples;
-//	}
-//
-//	public void setExamples(List<Example> examples) {
-//		this.examples = examples;
-//	}
+	// public List<Example> getExamples() {
+	// return examples;
+	// }
+	//
+	// public void setExamples(List<Example> examples) {
+	// this.examples = examples;
+	// }
 
 	public String getConstraints() {
 		return constraints;

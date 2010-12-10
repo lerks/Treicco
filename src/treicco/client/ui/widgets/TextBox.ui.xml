@@ -1,0 +1,15 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:e="urn:import:com.google.gwt.editor.ui.client"
+	xmlns:t="urn:import:treicco.client.ui.widgets">
+
+	<g:HTMLPanel stylePrimaryName="treicco-TextBox_Panel">
+		<div class="treicco-TextBox_LabelPanel">
+			<g:Label stylePrimaryName="treicco-TextBox_Label" ui:field="label" />
+		</div>
+		<div class="treicco-TextBox_InputPanel">
+			<g:TextBox stylePrimaryName="treicco-TextBox_Input"
+				ui:field="input" />
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

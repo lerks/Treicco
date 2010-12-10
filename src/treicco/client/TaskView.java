@@ -23,9 +23,9 @@ public interface TaskView extends IsWidget, Editor<TaskProxy> {
 
 	LeafValueEditor<String> author();
 
-	LeafValueEditor<String> timelimit();
+	LeafValueEditor<String> timeLimit();
 
-	LeafValueEditor<String> memorylimit();
+	LeafValueEditor<String> memoryLimit();
 
 	LeafValueEditor<String> difficulty();
 

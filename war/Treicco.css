@@ -1,1 +1,277 @@
-/** Add css rules here for your application. */
+/* Changes to default style */
+.gwt-PopupPanelGlass {
+	z-index: 1000;
+}
+
+.gwt-DialogBox {
+	z-index: 1000;
+}
+
+/* BUTTON */
+.treicco-Button {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	background: -moz-linear-gradient(center top, #F9F9F9, #E3E3E3) repeat
+		scroll 0 0 transparent;
+	border-color: #CCCCCC #BBBBBB #A0A0A0;
+	border-style: solid;
+	border-width: 1px;
+	outile: medium none;
+	padding: 2px 8px; /* was 3px */
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0;
+	display: inline-block;
+	position: relative;
+	outline: 0 none;
+	bottom: 1px; /* was 0 */
+}
+
+.treicco-Button:hover {
+	border-color: #939393;
+	-moz-box-shadow: 0 0 3px #999999;
+}
+
+.treicco-Button:focus {
+	border-width: 2px;
+	border-color: #F1C232;
+	padding: 1px 7px;
+}
+
+.treicco-Button:active {
+	background: -moz-linear-gradient(center top, #E3E3E3, #F9F9F9) repeat
+		scroll 0 0 transparent;
+}
+
+.treicco-Button::-moz-focus-inner {
+	border: 0;
+}
+
+/* TEXT BOX */
+.treicco-TextBox_Panel {
+	position: relative;
+	height: 23px;
+	width: 100%;
+	text-align: left;
+}
+
+.treicco-TextBox_Panel:hover {
+	background-color: #F0F0F0;
+}
+
+.treicco-TextBox_LabelPanel {
+	display: inline-block;
+	position: relative;
+	width: 112px;
+	text-align: right;
+	height: 100%;
+}
+
+.treicco-TextBox_Label {
+	color: #777777;
+	border: 0 none;
+	margin: 2px;
+	padding: 2px 8px 2px 2px;
+	vertical-align: text-top;
+}
+
+.treicco-TextBox_InputPanel {
+	position: absolute;
+	left: 112px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	margin: 5px 2px 5px 5px;
+}
+
+.treicco-TextBox_Input {
+	background-color: #FFFFFF;
+	border-color: #666666 #CCCCCC #CCCCCC;
+	border-style: solid;
+	border-width: 1px;
+	color: #000000;
+	padding: 3px 0 3px 3px;
+	font-size: 80%;
+	margin: 1px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: -5px;
+	left: -5px;
+}
+
+.treicco-TextBox_Input:focus {
+	border: 2px solid #F1C232;
+	margin: 0;
+	outline: 0 none;
+}
+
+/* FILE BOX */
+.treicco-FileBox_Panel {
+	position: relative;
+	height: 23px;
+	width: 100%;
+	text-align: left;
+}
+
+.treicco-FileBox_Panel:hover {
+	background-color: #F0F0F0;
+}
+
+.treicco-FileBox_LabelPanel {
+	display: inline-block;
+	position: relative;
+	width: 112px;
+	text-align: right;
+	height: 100%;
+}
+
+.treicco-FileBox_Label {
+	color: #777777;
+	border: 0 none;
+	margin: 2px;
+	padding: 2px 8px 2px 2px;
+	vertical-align: text-top;
+}
+
+.treicco-FileBox_InputPanel {
+	position: absolute;
+	left: 112px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+
+/* IMAGE LIST */
+.treicco-ImageList_Panel {
+	position: relative;
+	min-height: 300px;
+	width: 100%;
+}
+
+.treicco-ImageList_ListPanel {
+	position: relative;
+	width: 50%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.treicco-ImageList_ListPanel-top-select {
+	padding-top: 1px;
+}
+
+.treicco-ImageList_ListPanel-top-active {
+	padding-top: 0px;
+}
+
+.treicco-ImageList_ListPanel-bottom-select {
+	padding-bottom: 1px;
+}
+
+.treicco-ImageList_ListPanel-bottom-active {
+	padding-bottom: 0px;
+}
+
+.treicco-ImageList_ListItem {
+	color: #666666;
+	text-decoration: none;
+	position: relative;
+	display: block;
+	outline: 0 none;
+	margin-left: 4px;
+	border: 0 solid #000000;
+	padding: 2px 0 2px 10px;
+	background-color: #FFFFFF;
+}
+
+.treicco-ImageList_ListItem-hover {
+	color: #222222 !important;
+	background-color: #F0F0F0;
+}
+
+.treicco-ImageList_ListItem-focus {
+	background-color: #FFDC71;
+}
+
+.treicco-ImageList_ListItem-select {
+	right: -2px;
+	z-index: 1;
+	margin-left: 1px;
+	border-width: 1px 0 1px 1px;
+	border-color: #CCCCCC #CCCCCC #666666;
+	background-color: #FFFFFF !important;
+}
+
+.treicco-ImageList_ListItem-active {
+	right: -2px;
+	z-index: 1;
+	margin-left: 0;
+	border-width: 2px 0 2px 2px;
+	border-color: #F1C232;
+	background-color: #FFFFFF !important;
+}
+
+.treicco-ImageList_ListItem+.treicco-ImageList_ListItem {
+	margin-top: 6px;
+}
+
+.treicco-ImageList_ListItem+.treicco-ImageList_ListItem-select,.treicco-ImageList_ListItem-select+.treicco-ImageList_ListItem
+	{
+	margin-top: 5px;
+}
+
+.treicco-ImageList_ListItem+.treicco-ImageList_ListItem-active,.treicco-ImageList_ListItem-active+.treicco-ImageList_ListItem
+	{
+	margin-top: 4px;
+}
+
+.treicco-ImageList_ImagePanel {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	margin: 2px;
+	border: 0 none;
+	padding: 20px;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+
+.treicco-ImageList_ImagePanel-hover {
+	background-color: #E7E7E7;
+}
+
+.treicco-ImageList_ImagePanel-focus {
+	background-color: #FFDC71;
+}
+
+.treicco-ImageList_ImagePanel-select {
+	margin: 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #CCCCCC #CCCCCC #666666;
+	background-color: #FFFFFF;
+}
+
+.treicco-ImageList_ImagePanel-active {
+	margin: 0;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #F1C232;
+	background-color: #FFFFFF;
+}
+
+.treicco-ImageList_Image {
+	max-height: 256px;
+	max-width: 100%;
+}
+
+.treicco-ImageList_add {
+	position: absolute;
+	height: 20px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}

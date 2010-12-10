@@ -8,8 +8,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public class TaskViewImpl extends Composite implements TaskView {
@@ -20,6 +22,24 @@ public class TaskViewImpl extends Composite implements TaskView {
 	private static TaskViewUiBinder uiBinder = GWT.create(TaskViewUiBinder.class);
 
 	TaskPresenter presenter;
+
+	@UiField
+	Label shortName;
+
+	@UiField
+	Label fullName;
+
+	@UiField
+	Label timeLimit;
+
+	@UiField
+	Label memoryLimit;
+
+	@UiField
+	Label author;
+
+	@UiField
+	Label difficulty;
 
 	public TaskViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -35,33 +55,27 @@ public class TaskViewImpl extends Composite implements TaskView {
 	}
 
 	public LeafValueEditor<String> shortName() {
-		// TODO Auto-generated method stub
-		return null;
+		return shortName.asEditor();
 	}
 
 	public LeafValueEditor<String> fullName() {
-		// TODO Auto-generated method stub
-		return null;
+		return fullName.asEditor();
 	}
 
 	public LeafValueEditor<String> author() {
-		// TODO Auto-generated method stub
-		return null;
+		return author.asEditor();
 	}
 
-	public LeafValueEditor<String> timelimit() {
-		// TODO Auto-generated method stub
-		return null;
+	public LeafValueEditor<String> timeLimit() {
+		return timeLimit.asEditor();
 	}
 
-	public LeafValueEditor<String> memorylimit() {
-		// TODO Auto-generated method stub
-		return null;
+	public LeafValueEditor<String> memoryLimit() {
+		return memoryLimit.asEditor();
 	}
 
 	public LeafValueEditor<String> difficulty() {
-		// TODO Auto-generated method stub
-		return null;
+		return difficulty.asEditor();
 	}
 
 	public LeafValueEditor<String> description() {
