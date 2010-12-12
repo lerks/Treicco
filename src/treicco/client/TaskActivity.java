@@ -41,7 +41,7 @@ public class TaskActivity extends AbstractActivity implements TaskPresenter {
 
 		Request<TaskProxy> fetchRequest = clientFactory.getRequestFactory().taskRequest().findTask(place.getId());
 
-		// fetchRequest.with(editorDriver.getPaths());
+		fetchRequest.with(editorDriver.getPaths());
 
 		fetchRequest.to(new Receiver<TaskProxy>() {
 			@Override
@@ -59,7 +59,6 @@ public class TaskActivity extends AbstractActivity implements TaskPresenter {
 		Request<TaskProxy> fetchRequest = clientFactory.getRequestFactory().taskRequest().findTask(place.getId());
 
 		fetchRequest.with(editorDriver.getPaths());
-		clientFactory.getLogger().warning(String.valueOf(editorDriver.getPaths()[0]));
 
 		fetchRequest.to(new Receiver<TaskProxy>() {
 			@Override

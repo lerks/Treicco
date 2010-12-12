@@ -11,12 +11,14 @@
 .treicco-Button {
 	border-radius: 3px;
 	-moz-border-radius: 3px;
-	background: -moz-linear-gradient(center top, #F9F9F9, #E3E3E3) repeat
-		scroll 0 0 transparent;
-	border-color: #CCCCCC #BBBBBB #A0A0A0;
-	border-style: solid;
+	-webkit-border-radius: 3px;
+	background: #F9F9F9;
+	background: -moz-linear-gradient(center top, #F9F9F9, #E3E3E3);
+	background: -webkit-gradient(linear, left top, left bottom, from(#F9F9F9),
+		to(#E3E3E3) );
 	border-width: 1px;
-	outile: medium none;
+	border-style: solid;
+	border-color: #CCCCCC #BBBBBB #A0A0A0;
 	padding: 2px 8px; /* was 3px */
 	white-space: nowrap;
 	text-align: center;
@@ -25,12 +27,14 @@
 	display: inline-block;
 	position: relative;
 	outline: 0 none;
-	bottom: 1px; /* was 0 */
+	/*bottom: 1px; /* was 0 */
 }
 
 .treicco-Button:hover {
 	border-color: #939393;
+	box-shadow: 0 0 3px #999999;
 	-moz-box-shadow: 0 0 3px #999999;
+	-webkit-box-shadow: 0 0 3px #999999;
 }
 
 .treicco-Button:focus {
@@ -40,8 +44,10 @@
 }
 
 .treicco-Button:active {
-	background: -moz-linear-gradient(center top, #E3E3E3, #F9F9F9) repeat
-		scroll 0 0 transparent;
+	background: #E3E3E3;
+	background: -moz-linear-gradient(center top, #E3E3E3, #F9F9F9);
+	background: -webkit-gradient(linear, left top, left bottom, from(#E3E3E3),
+		to(#F9F9F9) );
 }
 
 .treicco-Button::-moz-focus-inner {
