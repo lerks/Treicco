@@ -28,7 +28,7 @@
 
 	<!-- Use ClientFactoryImpl by default -->
 	<replace-with class="treicco.client.ClientFactoryImpl">
-		<when-type-is class="treicco.client.ClientFactory" />
+		<when-type-is class="treicco.client.api.ClientFactory" />
 	</replace-with>
 
 </module>

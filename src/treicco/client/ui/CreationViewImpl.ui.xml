@@ -1,0 +1,33 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:t="urn:import:treicco.client.ui.widgets">
+	<ui:style>
+		.Panel {
+			height: 100%;
+			width: 100%;
+			background-color: #95B9DA;
+		}
+		
+		.LeftButton {
+			position: absolute;
+			left: 10px;
+			right: 130px;
+			top: 3px;
+			bottom: 3px;
+		}
+		
+		.RightButton {
+			position: absolute;
+			left: 130px;
+			right: 10px;
+			top: 3px;
+			bottom: 3px;
+		}
+	</ui:style>
+	<g:HTMLPanel addStyleNames="{style.Panel}">
+		<t:Button width="110px" addStyleNames="{style.LeftButton}"
+			ui:field="addDirectoryButton" text="Add Directory" />
+		<t:Button width="110px" addStyleNames="{style.RightButton}"
+			ui:field="addTaskButton" text="Add Task" />
+	</g:HTMLPanel>
+</ui:UiBinder>

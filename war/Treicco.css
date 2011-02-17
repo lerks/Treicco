@@ -54,7 +54,9 @@
 	border: 0;
 }
 
-/* TEXT BOX */
+/* TEXT BOX.treicco-TextBox_Panel:hover .treicco-TextBox_Label {
+	color: #222222 !important;
+} */
 .treicco-TextBox_Panel {
 	position: relative;
 	height: 23px;
@@ -75,11 +77,15 @@
 }
 
 .treicco-TextBox_Label {
-	color: #777777;
+	color: #666666;
 	border: 0 none;
 	margin: 2px;
 	padding: 2px 8px 2px 2px;
 	vertical-align: text-top;
+}
+
+.treicco-TextBox_Panel:hover .treicco-TextBox_Label {
+	color: #222222 !important;
 }
 
 .treicco-TextBox_InputPanel {
@@ -139,6 +145,10 @@
 	margin: 2px;
 	padding: 2px 8px 2px 2px;
 	vertical-align: text-top;
+}
+
+.treicco-FileBox_Panel:hover .treicco-FileBox_Label {
+	color: #222222 !important;
 }
 
 .treicco-FileBox_InputPanel {

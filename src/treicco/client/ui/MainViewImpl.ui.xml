@@ -1,0 +1,51 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:t="urn:import:treicco.client.ui.widgets">
+	<ui:style>
+		.TitlePanel {
+			position: absolute;
+			top: 0px;
+			height: 100px;
+			left: 0px;
+			right: 0px;
+		}
+		
+		.NavigationPanel {
+			position: absolute;
+			top: 100px;
+			bottom: 27px;
+			left: 0px;
+			width: 250px;
+		}
+		
+		.CreationPanel {
+			position: fixed;
+			height: 27px;
+			bottom: 0px;
+			left: 0px;
+			width: 250px;
+		}
+		
+		.RootPanel {
+			position: relative;
+			margin: 100px 0px 0px 250px;
+			border: 5px solid #3D85C6;
+			background-color: #ffffff;
+		}
+	</ui:style>
+
+	<g:HTMLPanel>
+		<div class="{style.TitlePanel}">
+			Task Repository for Informatics and Coding Competitions
+		</div>
+
+		<g:SimplePanel addStyleNames="{style.NavigationPanel}"
+			ui:field="navigationPanel" />
+
+		<g:SimplePanel addStyleNames="{style.CreationPanel}"
+			ui:field="creationPanel" />
+
+		<g:SimplePanel addStyleNames="{style.RootPanel}"
+			ui:field="rootPanel" />
+	</g:HTMLPanel>
+</ui:UiBinder> 

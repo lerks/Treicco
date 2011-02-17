@@ -3,8 +3,8 @@ package treicco.client.ui.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import treicco.client.TaskPresenter;
-import treicco.shared.ImageProxy;
+import treicco.client.api.ImageProxy;
+import treicco.client.api.TaskPresenter;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;

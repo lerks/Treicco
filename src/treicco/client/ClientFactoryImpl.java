@@ -2,7 +2,22 @@ package treicco.client;
 
 import java.util.logging.Logger;
 
-import treicco.shared.CompetitionRequestFactory;
+import treicco.client.api.ClientFactory;
+import treicco.client.api.CompetitionRequestFactory;
+import treicco.client.api.CreationView;
+import treicco.client.api.DirectoryView;
+import treicco.client.api.MainView;
+import treicco.client.api.NavigationView;
+import treicco.client.api.TaskView;
+import treicco.client.ui.CreationViewImpl;
+import treicco.client.ui.DirectoryCreateImpl;
+import treicco.client.ui.DirectoryDisplayImpl;
+import treicco.client.ui.DirectoryUpdateImpl;
+import treicco.client.ui.MainViewImpl;
+import treicco.client.ui.NavigationViewImpl;
+import treicco.client.ui.TaskCreateImpl;
+import treicco.client.ui.TaskUpdateImpl;
+import treicco.client.ui.TaskDisplayImpl;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
@@ -17,10 +32,14 @@ public class ClientFactoryImpl implements ClientFactory {
 	private final CompetitionRequestFactory requestFactory = GWT.create(CompetitionRequestFactory.class);
 	private final PlaceController placeController = new PlaceController(eventBus);
 	private final MainView mainView = new MainViewImpl();
-	private final DirectoryView directoryView = new DirectoryViewImpl();
-	private final DirectoryView directoryEdit = new DirectoryEditImpl();
-	private final TaskView taskView = new TaskViewImpl();
-	private final TaskView taskEdit = new TaskEditImpl();
+	private final NavigationView navigationView = new NavigationViewImpl();
+	private final CreationView creationView = new CreationViewImpl();
+	private final DirectoryView directoryView = new DirectoryDisplayImpl();
+	private final DirectoryView directoryEdit = new DirectoryUpdateImpl();
+	private final DirectoryView directoryCreate = new DirectoryCreateImpl();
+	private final TaskView taskView = new TaskDisplayImpl();
+	private final TaskView taskEdit = new TaskUpdateImpl();
+	private final TaskView taskCreate = new TaskCreateImpl();
 
 	public ClientFactoryImpl() {
 		requestFactory.initialize(eventBus);
@@ -47,19 +66,35 @@ public class ClientFactoryImpl implements ClientFactory {
 		return mainView;
 	}
 
-	public DirectoryView getDirectoryView() {
+	public NavigationView getNavigationView() {
+		return navigationView;
+	}
+
+	public CreationView getCreationView() {
+		return creationView;
+	}
+
+	public DirectoryView getDirectoryDisplay() {
 		return directoryView;
 	}
 
-	public DirectoryView getDirectoryEdit() {
+	public DirectoryView getDirectoryUpdate() {
 		return directoryEdit;
 	}
 
-	public TaskView getTaskView() {
+	public DirectoryView getDirectoryCreate() {
+		return directoryCreate;
+	}
+
+	public TaskView getTaskDisplay() {
 		return taskView;
 	}
 
-	public TaskView getTaskEdit() {
+	public TaskView getTaskUpdate() {
 		return taskEdit;
+	}
+
+	public TaskView getTaskCreate() {
+		return taskCreate;
 	}
 }

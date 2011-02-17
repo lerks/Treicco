@@ -1,5 +1,10 @@
 package treicco.client;
 
+import treicco.client.place.DirectoryDisplayPlace;
+import treicco.client.place.DirectoryPlace;
+import treicco.client.place.TaskDisplayPlace;
+import treicco.client.place.TaskPlace;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 
@@ -9,9 +14,9 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		if (token.equals("/"))
 			return DirectoryPlace.ROOT;
 		if (token.endsWith("/"))
-			return new DirectoryPlace(token);
+			return new DirectoryDisplayPlace(token);
 		else
-			return new TaskPlace(token);
+			return new TaskDisplayPlace(token);
 	}
 
 	public String getToken(Place place) {
